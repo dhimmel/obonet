@@ -15,7 +15,6 @@ def read_obo(obofile):
     graph = networkx.MultiDiGraph(name=header['ontology'],
         typedefs=typedefs, instances=instances,  **header)
 
-    typedef_ids = {typedef['id'] for typedef in typedefs}
     edge_tuples = list()
 
     for term in terms:
@@ -25,8 +24,14 @@ def read_obo(obofile):
         term_id = term.pop('id')
         graph.add_node(term_id, attr_dict=term)
 
-        for typedef in typedef_ids & set(term):
-            edge_tuple = term_id, typedef, term.pop(typedef)
+        for target_term in term.pop('is_a', []):
+            edge_tuple = term_id, 'is_a', target_term
+            edge_tuples.append(edge_tuple)
+
+        for relationship in term.pop('relationship', []):
+            typedef, target_term = relationship.split(' ')
+            edge_tuple = term_id, typedef, target_term
+            edge_tuples.append(edge_tuple)
 
     for term0, typedef, term1 in edge_tuples:
         graph.add_edge(term0, term1, key=typedef)
