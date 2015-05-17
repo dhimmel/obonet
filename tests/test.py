@@ -1,6 +1,6 @@
 import unittest
 
-class TestStringMethods(unittest.TestCase):
+class DummyTest(unittest.TestCase):
 
   def dummy_test(self):
       self.assertEqual(True, True)

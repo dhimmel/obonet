@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/dhimmel/obo.svg?branch=master)](https://travis-ci.org/dhimmel/obo)
+
 ## A python parser for OBO ontology files
 
 This repository contains python code for handling OBO serialized ontologies.
