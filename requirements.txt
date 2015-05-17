@@ -1,0 +1,4 @@
+# Requirements files documentation
+# https://pip.pypa.io/en/latest/user_guide.html#requirements-files
+
+networkx >= 1.8

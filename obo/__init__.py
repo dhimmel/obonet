@@ -1,1 +1,1 @@
-from read import read_obo
+from .read import read_obo
