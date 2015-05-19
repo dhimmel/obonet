@@ -1,4 +1,8 @@
+import sys
+
 import pytest
+
+sys.path.append("../")
 
 def test_parse_tag_line_newline_agnostic():
     import obo.read
