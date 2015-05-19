@@ -45,5 +45,12 @@ def test_parse_tag_line_with_tag_value_trailing_modifier_and_comment():
     assert trailing_modifier == 'source="ncithesaurus:Islet_of_Langerhans"'
     assert comment == 'Islets of Langerhans'
 
+def test_parse_tag_line_backslashed_exclamation():
+    import obo.read
+    line = 'synonym: not a real example \!\n'
+    tag, value, trailing_modifier, comment = obo.read.parse_tag_line(line)
+    assert tag == 'synonym'
+    assert value == 'not a real example \!'
+
 if __name__ == '__main__':
     pytest.main()
