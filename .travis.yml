@@ -1,8 +1,6 @@
 language: python
 python:
   - "3.4"
-# install dependencies
-install: pip install -r requirements.txt --use-mirrors
 # install package
 install: python setup.py install
 # run tests

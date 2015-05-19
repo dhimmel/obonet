@@ -1,8 +1,6 @@
-#!/usr/bin/env python
+import setuptools
 
-import distutils.core
-
-distutils.core.setup(
+setuptools.setup(
     name = 'obo',
     version = '0.1.0',
     author = 'Daniel Himmelstein',
@@ -11,4 +9,5 @@ distutils.core.setup(
     description = 'OBO ontology tools in python',
     license = 'CC0',
     packages = ['obo'],
+    install_requires = ['networkx'],
     )
