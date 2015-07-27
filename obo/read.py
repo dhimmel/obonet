@@ -130,8 +130,9 @@ header_tag_singularity = {
 
 term_tag_singularity = {
     'id': True,
-    'name': True,
     'is_anonymous': True,
+    'name': True,
+    'namespace': True,
     'alt_id': False,
     'def': True,
     'comment': True,
@@ -156,7 +157,6 @@ term_tag_singularity = {
     'created_by': True,
     'creation_date': True,
     }
-
 
 typedef_tag_singularity = {
     'id': True,
@@ -184,14 +184,18 @@ typedef_tag_singularity = {
 
 instance_tag_singularity = {
     'id': True,
+    'is_anonymous': True,
     'name': True,
+    'namespace': True,
+    'alt_id': False,
+    'def': False,
+    'comment': True,
+    'subset': False,
+    'synonym': False,
+    'xref': False,
     'instance_of': True,
     'property_value': False,
-    'is_anonymous': True,
-    'alt_id': False,
-    'comment': True,
-    'xref': False,
-    'synonym': False,
+    'relationship': False,
     'created_by': True,
     'creation_date': True,
     'is_obsolete': True,
