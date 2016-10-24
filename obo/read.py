@@ -9,7 +9,7 @@ def read_obo(obofile):
     specified path.
 
     This function attempts to follow the specifications provided at:
-    https://oboformat.googlecode.com/svn/trunk/doc/GO.format.obo-1_4.html
+    http://owlcollab.github.io/oboformat/doc/obo-syntax.html
     """
     typedefs, terms, instances, header = get_sections(obofile)
     graph = networkx.MultiDiGraph(name=header['ontology'],
