@@ -10,11 +10,17 @@ import networkx
 
 def read_obo(path_or_file):
     """
-    Return a networkx MultiDiGraph of the ontology serialized by the
-    specified path.
+    Return a networkx.MultiDiGraph of the ontology serialized by the
+    specified path or file.
 
     This function attempts to follow the specifications provided at:
     http://owlcollab.github.io/oboformat/doc/obo-syntax.html
+
+    Parameters
+    ==========
+    path_or_file : str or file
+        Path, URL, or open file object. If path or URL, compression is
+        inferred from the file extension.
     """
     obo_file = open_read_file(path_or_file)
     typedefs, terms, instances, header = get_sections(obo_file)
