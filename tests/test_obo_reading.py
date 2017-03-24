@@ -1,5 +1,7 @@
 import os
 
+import pytest
+
 import obo
 import obo.read
 
@@ -7,7 +9,7 @@ import obo.read
 directory = os.path.dirname(os.path.abspath(__file__))
 
 
-def test_read_taxrank():
+def test_read_taxrank_file():
     """
     Test reading the taxrank ontology OBO file.
     """
@@ -17,6 +19,17 @@ def test_read_taxrank():
     assert len(taxrank) == 61
     assert taxrank.node['TAXRANK:0000001']['name'] == 'phylum'
     assert 'NCBITaxon:kingdom' in taxrank.node['TAXRANK:0000017']['xref']
+
+
+@pytest.mark.parametrize('extension', ['', '.gz', '.bz2', '.xz'])
+def test_read_taxrank_path(extension):
+    """
+    Test reading the taxrank ontology OBO file from paths. Includes reading
+    compressed paths.
+    """
+    path = os.path.join(directory, 'data', 'taxrank.obo' + extension)
+    taxrank = obo.read_obo(path)
+    assert len(taxrank) == 61
 
 
 def test_parse_tag_line_newline_agnostic():
