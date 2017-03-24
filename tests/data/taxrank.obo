@@ -1,0 +1,454 @@
+format-version: 1.2
+data-version: releases/2016-04-15
+default-namespace: taxonomic_rank
+remark: To the extent possible under law, Peter E. Midford has waived all copyright and related or neighboring rights to the Taxonomic Rank Vocabulary (TAXRANK). This work is published from the United States. It is requested that users of this vocabulary cite it at the following URI: http://www.phenoscape.org/wiki/Taxonomic_Rank_Vocabulary
+ontology: taxrank
+owl-axioms: Prefix(owl:=<http://www.w3.org/2002/07/owl#>)\nPrefix(rdf:=<http://www.w3.org/1999/02/22-rdf-syntax-ns#>)\nPrefix(xml:=<http://www.w3.org/XML/1998/namespace>)\nPrefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)\nPrefix(rdfs:=<http://www.w3.org/2000/01/rdf-schema#>)\n\n\nOntology(\nSubClassOf(<http://purl.obolibrary.org/obo/TAXRANK_0000000> owl:Thing)\n)
+
+[Term]
+id: TAXRANK:0000000
+name: taxonomic_rank
+def: "A level of depth of a taxon in a taxonomic hierarchy." [TAXRANK:curator]
+
+[Term]
+id: TAXRANK:0000001
+name: phylum
+synonym: "division" EXACT []
+xref: http://rs.tdwg.org/ontology/voc/TaxonRank#Phylum
+xref: NCBITaxon:phylum
+is_a: TAXRANK:0000000 ! taxonomic_rank
+
+[Term]
+id: TAXRANK:0000002
+name: class
+xref: http://rs.tdwg.org/ontology/voc/TaxonRank#Class
+xref: NCBITaxon:class
+is_a: TAXRANK:0000000 ! taxonomic_rank
+
+[Term]
+id: TAXRANK:0000003
+name: order
+xref: http://rs.tdwg.org/ontology/voc/TaxonRank#Order
+xref: NCBITaxon:order
+is_a: TAXRANK:0000000 ! taxonomic_rank
+
+[Term]
+id: TAXRANK:0000004
+name: family
+xref: http://rs.tdwg.org/ontology/voc/TaxonRank#Family
+xref: NCBITaxon:family
+is_a: TAXRANK:0000000 ! taxonomic_rank
+
+[Term]
+id: TAXRANK:0000005
+name: genus
+xref: http://rs.tdwg.org/ontology/voc/TaxonRank#Genus
+xref: NCBITaxon:genus
+is_a: TAXRANK:0000000 ! taxonomic_rank
+
+[Term]
+id: TAXRANK:0000006
+name: species
+xref: http://rs.tdwg.org/ontology/voc/TaxonRank#Species
+xref: NCBITaxon:species
+is_a: TAXRANK:0000000 ! taxonomic_rank
+
+[Term]
+id: TAXRANK:0000007
+name: subclass
+xref: http://rs.tdwg.org/ontology/voc/TaxonRank#Subclass
+xref: NCBITaxon:subclass
+is_a: TAXRANK:0000000 ! taxonomic_rank
+
+[Term]
+id: TAXRANK:0000008
+name: subphylum
+synonym: "subdivision" EXACT []
+xref: http://rs.tdwg.org/ontology/voc/TaxonRank#SubPhylum
+xref: NCBITaxon:subphylum
+is_a: TAXRANK:0000000 ! taxonomic_rank
+
+[Term]
+id: TAXRANK:0000009
+name: subgenus
+xref: http://rs.tdwg.org/ontology/voc/TaxonRank#Subgenus
+xref: NCBITaxon:subgenus
+is_a: TAXRANK:0000000 ! taxonomic_rank
+
+[Term]
+id: TAXRANK:0000010
+name: species_group
+xref: NCBITaxon:species_group
+is_a: TAXRANK:0000000 ! taxonomic_rank
+
+[Term]
+id: TAXRANK:0000011
+name: species_subgroup
+synonym: "species complex" EXACT []
+xref: NCBITaxon:species_subgroup
+is_a: TAXRANK:0000000 ! taxonomic_rank
+
+[Term]
+id: TAXRANK:0000012
+name: species_complex
+is_a: TAXRANK:0000000 ! taxonomic_rank
+
+[Term]
+id: TAXRANK:0000013
+name: infraorder
+xref: http://rs.tdwg.org/ontology/voc/TaxonRank#Infraorder
+xref: NCBITaxon:infraorder
+is_a: TAXRANK:0000000 ! taxonomic_rank
+
+[Term]
+id: TAXRANK:0000014
+name: suborder
+xref: http://rs.tdwg.org/ontology/voc/TaxonRank#Suborder
+xref: NCBITaxon:suborder
+is_a: TAXRANK:0000000 ! taxonomic_rank
+created_by: pmidford
+
+[Term]
+id: TAXRANK:0000015
+name: superclass
+xref: http://rs.tdwg.org/ontology/voc/TaxonRank#Superclass
+xref: NCBITaxon:superclass
+is_a: TAXRANK:0000000 ! taxonomic_rank
+created_by: pmidford
+
+[Term]
+id: TAXRANK:0000016
+name: varietas
+synonym: "variety" EXACT []
+xref: NCBITaxon:varietas
+is_a: TAXRANK:0000000 ! taxonomic_rank
+created_by: pmidford
+
+[Term]
+id: TAXRANK:0000017
+name: kingdom
+xref: http://rs.tdwg.org/ontology/voc/TaxonRank#Kingdom
+xref: NCBITaxon:kingdom
+is_a: TAXRANK:0000000 ! taxonomic_rank
+created_by: pmidford
+
+[Term]
+id: TAXRANK:0000018
+name: superfamily
+xref: http://rs.tdwg.org/ontology/voc/TaxonRank#Superfamily
+xref: NCBITaxon:superfamily
+is_a: TAXRANK:0000000 ! taxonomic_rank
+created_by: pmidford
+
+[Term]
+id: TAXRANK:0000019
+name: infraclass
+xref: http://rs.tdwg.org/ontology/voc/TaxonRank#Infraclass
+xref: NCBITaxon:infraclass
+is_a: TAXRANK:0000000 ! taxonomic_rank
+created_by: pmidford
+
+[Term]
+id: TAXRANK:0000020
+name: superorder
+xref: http://rs.tdwg.org/ontology/voc/TaxonRank#Superorder
+xref: NCBITaxon:superorder
+is_a: TAXRANK:0000000 ! taxonomic_rank
+created_by: pmidford
+
+[Term]
+id: TAXRANK:0000021
+name: parvorder
+xref: NCBITaxon:parvorder
+is_a: TAXRANK:0000000 ! taxonomic_rank
+created_by: pmidford
+
+[Term]
+id: TAXRANK:0000022
+name: superkingdom
+xref: http://rs.tdwg.org/ontology/voc/TaxonRank#Superkingdom
+xref: NCBITaxon:superkingdom
+is_a: TAXRANK:0000000 ! taxonomic_rank
+created_by: pmidford
+
+[Term]
+id: TAXRANK:0000023
+name: subspecies
+xref: http://rs.tdwg.org/ontology/voc/TaxonRank#Subspecies
+xref: NCBITaxon:subspecies
+is_a: TAXRANK:0000000 ! taxonomic_rank
+created_by: pmidford
+
+[Term]
+id: TAXRANK:0000024
+name: subfamily
+xref: http://rs.tdwg.org/ontology/voc/TaxonRank#Subfamily
+xref: NCBITaxon:subfamily
+is_a: TAXRANK:0000000 ! taxonomic_rank
+created_by: pmidford
+
+[Term]
+id: TAXRANK:0000025
+name: tribe
+xref: http://rs.tdwg.org/ontology/voc/TaxonRank#Tribe
+xref: NCBITaxon:tribe
+is_a: TAXRANK:0000000 ! taxonomic_rank
+created_by: pmidford
+
+[Term]
+id: TAXRANK:0000026
+name: forma
+synonym: "form" EXACT []
+xref: http://rs.tdwg.org/ontology/voc/TaxonRank#Form
+xref: NCBITaxon:forma
+is_a: TAXRANK:0000000 ! taxonomic_rank
+created_by: pmidford
+
+[Term]
+id: TAXRANK:0000027
+name: superphylum
+synonym: "superdivision" EXACT []
+xref: http://rs.tdwg.org/ontology/voc/TaxonRank#Superphylum
+xref: NCBITaxon:superphylum
+is_a: TAXRANK:0000000 ! taxonomic_rank
+created_by: pmidford
+
+[Term]
+id: TAXRANK:0000028
+name: subtribe
+xref: http://rs.tdwg.org/ontology/voc/TaxonRank#Subtribe
+xref: NCBITaxon:subtribe
+is_a: TAXRANK:0000000 ! taxonomic_rank
+created_by: pmidford
+
+[Term]
+id: TAXRANK:0000029
+name: subkingdom
+xref: http://rs.tdwg.org/ontology/voc/TaxonRank#Subkingdom
+xref: NCBITaxon:subkingdom
+is_a: TAXRANK:0000000 ! taxonomic_rank
+created_by: pmidford
+
+[Term]
+id: TAXRANK:0000030
+name: section
+xref: http://rs.tdwg.org/ontology/voc/TaxonRank#Section
+is_a: TAXRANK:0000000 ! taxonomic_rank
+created_by: pmidford
+
+[Term]
+id: TAXRANK:0000031
+name: series
+xref: http://rs.tdwg.org/ontology/voc/TaxonRank#Series
+is_a: TAXRANK:0000000 ! taxonomic_rank
+created_by: pmidford
+
+[Term]
+id: TAXRANK:0000032
+name: bio-variety
+xref: http://rs.tdwg.org/ontology/voc/TaxonRank#Bio-variety
+is_a: TAXRANK:0000000 ! taxonomic_rank
+created_by: pmidford
+
+[Term]
+id: TAXRANK:0000033
+name: candidate
+xref: http://rs.tdwg.org/ontology/voc/TaxonRank#Candidate
+is_a: TAXRANK:0000000 ! taxonomic_rank
+created_by: pmidford
+
+[Term]
+id: TAXRANK:0000034
+name: cultivar
+xref: http://rs.tdwg.org/ontology/voc/TaxonRank#Cultivar
+is_a: TAXRANK:0000000 ! taxonomic_rank
+created_by: pmidford
+
+[Term]
+id: TAXRANK:0000035
+name: cultivar-group
+xref: http://rs.tdwg.org/ontology/voc/TaxonRank#Cultivar-group
+is_a: TAXRANK:0000000 ! taxonomic_rank
+created_by: pmidford
+
+[Term]
+id: TAXRANK:0000036
+name: denominationclass
+xref: http://rs.tdwg.org/ontology/voc/TaxonRank#DenominationClass
+is_a: TAXRANK:0000000 ! taxonomic_rank
+created_by: pmidford
+
+[Term]
+id: TAXRANK:0000037
+name: domain
+synonym: "empire" EXACT []
+xref: http://rs.tdwg.org/ontology/voc/TaxonRank#Domain
+is_a: TAXRANK:0000000 ! taxonomic_rank
+created_by: pmidford
+
+[Term]
+id: TAXRANK:0000038
+name: graft-chimaera
+xref: http://rs.tdwg.org/ontology/voc/TaxonRank#Graft-chimaera
+is_a: TAXRANK:0000000 ! taxonomic_rank
+created_by: pmidford
+
+[Term]
+id: TAXRANK:0000039
+name: grex
+xref: http://rs.tdwg.org/ontology/voc/TaxonRank#Grex
+is_a: TAXRANK:0000000 ! taxonomic_rank
+created_by: pmidford
+
+[Term]
+id: TAXRANK:0000040
+name: infraphylum
+synonym: "infradivision" EXACT []
+xref: http://rs.tdwg.org/ontology/voc/TaxonRank#Infraphylum
+is_a: TAXRANK:0000000 ! taxonomic_rank
+created_by: pmidford
+
+[Term]
+id: TAXRANK:0000041
+name: infrafamily
+xref: http://rs.tdwg.org/ontology/voc/TaxonRank#Infrafamily
+is_a: TAXRANK:0000000 ! taxonomic_rank
+created_by: pmidford
+
+[Term]
+id: TAXRANK:0000042
+name: infragenerictaxon
+xref: http://rs.tdwg.org/ontology/voc/TaxonRank#InfragenericTaxon
+is_a: TAXRANK:0000000 ! taxonomic_rank
+created_by: pmidford
+
+[Term]
+id: TAXRANK:0000043
+name: infragenus
+xref: http://rs.tdwg.org/ontology/voc/TaxonRank#Infragenus
+is_a: TAXRANK:0000000 ! taxonomic_rank
+created_by: pmidford
+
+[Term]
+id: TAXRANK:0000044
+name: infrakingdom
+xref: http://rs.tdwg.org/ontology/voc/TaxonRank#Infrakingdom
+is_a: TAXRANK:0000000 ! taxonomic_rank
+created_by: pmidford
+
+[Term]
+id: TAXRANK:0000045
+name: infraspecies
+xref: http://rs.tdwg.org/ontology/voc/TaxonRank#Infraspecies
+is_a: TAXRANK:0000000 ! taxonomic_rank
+created_by: pmidford
+
+[Term]
+id: TAXRANK:0000046
+name: infraspecificTaxon
+xref: http://rs.tdwg.org/ontology/voc/TaxonRank#InfraspecificTaxon
+is_a: TAXRANK:0000000 ! taxonomic_rank
+created_by: pmidford
+
+[Term]
+id: TAXRANK:0000047
+name: infratribe
+xref: http://rs.tdwg.org/ontology/voc/TaxonRank#Infratribe
+is_a: TAXRANK:0000000 ! taxonomic_rank
+created_by: pmidford
+
+[Term]
+id: TAXRANK:0000048
+name: patho-variety
+xref: http://rs.tdwg.org/ontology/voc/TaxonRank#patho-variety
+is_a: TAXRANK:0000000 ! taxonomic_rank
+created_by: pmidford
+
+[Term]
+id: TAXRANK:0000049
+name: specialform
+xref: http://rs.tdwg.org/ontology/voc/TaxonRank#Specialform
+is_a: TAXRANK:0000000 ! taxonomic_rank
+created_by: pmidford
+
+[Term]
+id: TAXRANK:0000050
+name: speciesaggregate
+xref: http://rs.tdwg.org/ontology/voc/TaxonRank#SpeciesAggregate
+is_a: TAXRANK:0000000 ! taxonomic_rank
+created_by: pmidford
+
+[Term]
+id: TAXRANK:0000051
+name: subvariety
+xref: http://rs.tdwg.org/ontology/voc/TaxonRank#Sub-Variety
+is_a: TAXRANK:0000000 ! taxonomic_rank
+created_by: pmidford
+
+[Term]
+id: TAXRANK:0000052
+name: subsubvariety
+xref: http://rs.tdwg.org/ontology/voc/TaxonRank#Sub-Sub-Variety
+is_a: TAXRANK:0000000 ! taxonomic_rank
+created_by: pmidford
+
+[Term]
+id: TAXRANK:0000053
+name: subsection
+xref: http://rs.tdwg.org/ontology/voc/TaxonRank#Subsection
+is_a: TAXRANK:0000000 ! taxonomic_rank
+created_by: pmidford
+
+[Term]
+id: TAXRANK:0000054
+name: subseries
+xref: http://rs.tdwg.org/ontology/voc/TaxonRank#Subseries
+is_a: TAXRANK:0000000 ! taxonomic_rank
+created_by: pmidford
+
+[Term]
+id: TAXRANK:0000055
+name: subspecificaggregate
+xref: http://rs.tdwg.org/ontology/voc/TaxonRank#SubspecificAggregate
+is_a: TAXRANK:0000000 ! taxonomic_rank
+created_by: pmidford
+
+[Term]
+id: TAXRANK:0000056
+name: subsubform
+xref: http://rs.tdwg.org/ontology/voc/TaxonRank#Subsubform
+is_a: TAXRANK:0000000 ! taxonomic_rank
+created_by: pmidford
+
+[Term]
+id: TAXRANK:0000057
+name: supertribe
+xref: http://rs.tdwg.org/ontology/voc/TaxonRank#Supertribe
+is_a: TAXRANK:0000000 ! taxonomic_rank
+created_by: pmidford
+
+[Term]
+id: TAXRANK:0000058
+name: supragenerictaxon
+xref: http://rs.tdwg.org/ontology/voc/TaxonRank#SupragenericTaxon
+is_a: TAXRANK:0000000 ! taxonomic_rank
+created_by: pmidford
+
+[Term]
+id: TAXRANK:0000059
+name: subform
+is_a: TAXRANK:0000000 ! taxonomic_rank
+created_by: pmidford
+
+[Term]
+id: TAXRANK:0000060
+name: no_rank
+def: "A token asserting that the taxon was not assigned a rank." [TAXRANK:curator]
+is_a: TAXRANK:0000000 ! taxonomic_rank
+created_by: pmidford
+
+[Typedef]
+id: TAXRANK:1000000
+name: has_rank
+is_metadata_tag: true
+

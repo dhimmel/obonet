@@ -1,4 +1,22 @@
+import os
+
+import obo
 import obo.read
+
+
+directory = os.path.dirname(os.path.abspath(__file__))
+
+
+def test_read_taxrank():
+    """
+    Test reading the taxrank ontology OBO file.
+    """
+    path = os.path.join(directory, 'data', 'taxrank.obo')
+    with open(path, 'rt') as read_file:
+        taxrank = obo.read_obo(read_file)
+    assert len(taxrank) == 61
+    assert taxrank.node['TAXRANK:0000001']['name'] == 'phylum'
+    assert 'NCBITaxon:kingdom' in taxrank.node['TAXRANK:0000017']['xref']
 
 
 def test_parse_tag_line_newline_agnostic():
