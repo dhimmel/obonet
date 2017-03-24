@@ -1,6 +1,6 @@
-[![Build Status](https://travis-ci.org/dhimmel/obo.svg?branch=master)](https://travis-ci.org/dhimmel/obo)
-
 ## A python parser for OBO ontology files
+
+[![Build Status](https://travis-ci.org/dhimmel/obo.svg?branch=master)](https://travis-ci.org/dhimmel/obo)
 
 This repository contains python code for handling OBO serialized ontologies.
 
@@ -8,3 +8,5 @@ The function `obo.read_obo()` takes an `.obo` file and returns a [networkx Multi
 The parser aims to be compatible with OBO versions [1.2](https://owlcollab.github.io/oboformat/doc/GO.format.obo-1_2.html) and [1.4](https://owlcollab.github.io/oboformat/doc/GO.format.obo-1_4.html).
 
 We welcome feature suggestions and community contributions.
+Currently, only reading OBO files is supported.
+Please open an issue if you're interested in writing OBO files in Python.
