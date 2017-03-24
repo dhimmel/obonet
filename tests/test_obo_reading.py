@@ -32,6 +32,18 @@ def test_read_taxrank_path(extension):
     assert len(taxrank) == 61
 
 
+@pytest.mark.parametrize('extension', ['', '.gz', '.bz2', '.xz'])
+def test_read_taxrank_url(extension):
+    """
+    Test reading the taxrank ontology OBO file from paths. Includes reading
+    compressed paths.
+    """
+    url = 'https://github.com/dhimmel/obo/raw/master/tests/data/taxrank.obo'
+    url += extension
+    taxrank = obo.read_obo(url)
+    assert len(taxrank) == 61
+
+
 def test_parse_tag_line_newline_agnostic():
     for line in ['saved-by: vw', 'saved-by: vw\n']:
         tag, value, trailing_modifier, comment = obo.read.parse_tag_line(line)
