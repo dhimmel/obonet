@@ -38,7 +38,7 @@ def test_parse_tag_line_with_tag_value_and_trailing_modifier():
 
 
 def test_parse_tag_line_with_tag_value_trailing_modifier_and_comment():
-    line = 'xref: UMLS:C0022131 {source="ncithesaurus:Islet_of_Langerhans"} ! Islets of Langerhans\n'
+    line = 'xref: UMLS:C0022131 {source="ncithesaurus:Islet_of_Langerhans"} ! Islets of Langerhans\n'  # noqa: E501
     tag, value, trailing_modifier, comment = obo.read.parse_tag_line(line)
     assert tag == 'xref'
     assert value == 'UMLS:C0022131'
