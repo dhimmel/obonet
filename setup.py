@@ -30,14 +30,27 @@ except Exception as error:
 
 
 setuptools.setup(
-    name = 'obo',
-    version = version,
-    author = 'Daniel Himmelstein',
-    author_email = 'daniel.himmelstein@gmail.com',
-    url = 'https://github.com/dhimmel/obo',
-    description = 'OBO ontology tools in python',
-    long_description = long_description,
-    license = 'CC0',
-    packages = ['obo'],
-    install_requires = ['networkx'],
-    )
+    name='obo',
+    version=version,
+    author='Daniel Himmelstein',
+    author_email='daniel.himmelstein@gmail.com',
+    url='https://github.com/dhimmel/obo',
+    description='OBO ontology tools in python',
+    long_description=long_description,
+    license='CC0 1.0',
+    packages=['obo'],
+
+    keywords='obo ontology networkx parser',
+    classifiers=[
+        'Intended Audience :: Science/Research',
+        'Topic :: Scientific/Engineering :: Bio-Informatics',
+        'Topic :: Scientific/Engineering :: Information Analysis',
+        'License :: CC0 1.0 Universal (CC0 1.0) Public Domain Dedication',
+        'Programming Language :: Python :: 3',
+    ],
+
+    # Dependencies
+    install_requires=[
+        'networkx',
+    ],
+)
