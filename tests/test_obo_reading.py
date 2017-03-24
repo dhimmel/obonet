@@ -44,6 +44,16 @@ def test_read_taxrank_url(extension):
     assert len(taxrank) == 61
 
 
+@pytest.mark.parametrize('ontology', ['doid', 'go', 'pato'])
+def test_read_obo(ontology):
+    """
+    Test that reading ontology does not error.
+    """
+    url = 'http://purl.obolibrary.org/obo/{}.obo'.format(ontology)
+    graph = obo.read_obo(url)
+    assert graph
+
+
 def test_parse_tag_line_newline_agnostic():
     for line in ['saved-by: vw', 'saved-by: vw\n']:
         tag, value, trailing_modifier, comment = obo.read.parse_tag_line(line)
