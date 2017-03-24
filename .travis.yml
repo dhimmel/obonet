@@ -1,7 +1,15 @@
+dist: trusty
+sudo: false
 language: python
 python:
   - "3.4"
-# install package
-install: python setup.py install
-# run tests
-script: py.test tests/
+  - "3.5"
+  - "3.6"
+addons:
+  apt_packages:
+    - pandoc
+install:
+  - python setup.py install
+  - python setup.py sdist bdist_wheel
+script:
+  - py.test
