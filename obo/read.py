@@ -3,6 +3,7 @@ import re
 
 import networkx
 
+
 def read_obo(obofile):
     """
     Return a networkx MultiDiGraph of the ontology serialized by the
@@ -12,8 +13,11 @@ def read_obo(obofile):
     http://owlcollab.github.io/oboformat/doc/obo-syntax.html
     """
     typedefs, terms, instances, header = get_sections(obofile)
-    graph = networkx.MultiDiGraph(name=header['ontology'],
-        typedefs=typedefs, instances=instances,  **header)
+    graph = networkx.MultiDiGraph(
+        name=header['ontology'],
+        typedefs=typedefs,
+        instances=instances,
+        **header)
 
     edge_tuples = list()
 
@@ -37,6 +41,7 @@ def read_obo(obofile):
         graph.add_edge(term0, term1, key=typedef)
 
     return graph
+
 
 def get_sections(lines):
     """
@@ -66,9 +71,11 @@ def get_sections(lines):
             header = parse_stanza(stanza_lines, header_tag_singularity)
     return typedefs, terms, instances, header
 
+
 # regular expression to parse key-value pair lines.
 tag_line_pattern = re.compile(
-    r'^(?P<tag>.+?): *(?P<value>.+?) ?(?P<trailing_modifier>(?<!\\)\{.*?(?<!\\)\})? ?(?P<comment>(?<!\\)!.*?)?$')
+    r'^(?P<tag>.+?): *(?P<value>.+?) ?(?P<trailing_modifier>(?<!\\)\{.*?(?<!\\)\})? ?(?P<comment>(?<!\\)!.*?)?$')  # noqa: E501
+
 
 def parse_tag_line(line):
     """
@@ -89,6 +96,7 @@ def parse_tag_line(line):
         comment = comment.lstrip('! ')
     return tag, value, trailing_modifier, comment
 
+
 def parse_stanza(lines, tag_singularity):
     """
     Returns a dictionary representation of a stanza.
@@ -104,10 +112,11 @@ def parse_stanza(lines, tag_singularity):
             stanza.setdefault(tag, []).append(value)
     return stanza
 
+
 header_tag_singularity = {
     'format-version': True,
     'data-version': True,
-    'version': True, # deprecated
+    'version': True,  # deprecated
     'ontology': True,
     'date': True,
     'saved-by': True,
@@ -138,9 +147,9 @@ term_tag_singularity = {
     'comment': True,
     'subset': False,
     'synonym': False,
-    'exact_synonym': False, # deprecated
-    'narrow_synonym': False, # deprecated
-    'broad_synonym': False, # deprecated
+    'exact_synonym': False,  # deprecated
+    'narrow_synonym': False,  # deprecated
+    'broad_synonym': False,  # deprecated
     'xref': False,
     'xref_unk': False,
     'is_a': False,
@@ -151,7 +160,7 @@ term_tag_singularity = {
     'is_obsolete': True,
     'replaced_by': False,
     'consider': False,
-    'use_term': False, # deprecated
+    'use_term': False,  # deprecated
     'builtin': True,
     # Additional tags in 1.4:
     'created_by': True,
