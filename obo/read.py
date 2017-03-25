@@ -94,8 +94,8 @@ def parse_tag_line(line):
     """
     match = re.match(tag_line_pattern, line)
     if match is None:
-        print('Tag-value pair parsing failed for', line)
-        raise ValueError
+        message = 'Tag-value pair parsing failed for:\n{}'.format(line)
+        raise ValueError(message)
     tag = match.group('tag')
     value = match.group('value')
     trailing_modifier = match.group('trailing_modifier')
