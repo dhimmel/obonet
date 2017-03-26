@@ -1,11 +1,19 @@
-## A python parser for OBO ontology files
+# obonet: load OBO-formatted ontologies into networkx
 
 [![Build Status](https://travis-ci.org/dhimmel/obonet.svg?branch=master)](https://travis-ci.org/dhimmel/obonet)
 
-This repository contains a python package for handling OBO serialized ontologies.
-The function `obonet.read_obo()` takes an `.obo` file and returns a [`networkx.MultiDiGraph`](http://networkx.readthedocs.io/en/stable/reference/classes.multidigraph.html) representation of the ontology.
+Read OBO-formatted ontologies in Python.
+User friendly.
+No nonsense.
+Pythonic.
+Modern.
+Simple and tested.
+Lightweight.
+Leverages `networkx`.
 
-The parser aims to be compatible with OBO versions [1.2](https://owlcollab.github.io/oboformat/doc/GO.format.obo-1_2.html) and [1.4](https://owlcollab.github.io/oboformat/doc/GO.format.obo-1_4.html).
+This Python 3.4+ package loads OBO serialized ontologies into networks.
+The function `obonet.read_obo()` takes an `.obo` file and returns a [`networkx.MultiDiGraph`](http://networkx.readthedocs.io/en/stable/reference/classes.multidigraph.html) representation of the ontology.
+The parser was designed for the OBO specification version [1.2](https://owlcollab.github.io/oboformat/doc/GO.format.obo-1_2.html) & [1.4](https://owlcollab.github.io/oboformat/doc/GO.format.obo-1_4.html).
 
 ## Usage
 
@@ -43,6 +51,8 @@ id_to_name['TAXRANK:0000006']  # TAXRANK:0000006 is species
 # superterms, while networkx.ancestors returns subterms.
 networkx.descendants(graph, 'TAXRANK:0000006')
 ```
+
+For a more detailed tutorial, see the [**Gene Ontology example notebook**](examples/go-obonet.ipynb).
 
 ## Installation
 
