@@ -3,13 +3,15 @@
 [![Build Status](https://travis-ci.org/dhimmel/obonet.svg?branch=master)](https://travis-ci.org/dhimmel/obonet)
 
 Read OBO-formatted ontologies in Python.
-User friendly.
-No nonsense.
-Pythonic.
-Modern.
-Simple and tested.
-Lightweight.
-Leverages `networkx`.
+`obonet` is
+
++ user friendly
++ no nonsense
++ pythonic
++ modern
++ simple and tested
++ lightweight
++ [`networkx`](https://networkx.readthedocs.io/en/stable/overview.html) leveraging
 
 This Python 3.4+ package loads OBO serialized ontologies into networks.
 The function `obonet.read_obo()` takes an `.obo` file and returns a [`networkx.MultiDiGraph`](http://networkx.readthedocs.io/en/stable/reference/classes.multidigraph.html) representation of the ontology.
