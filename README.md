@@ -46,7 +46,13 @@ networkx.descendants(graph, 'TAXRANK:0000006')
 
 ## Installation
 
-The latest version of the package can be installed using `pip` with:
+The recommended approach is to install the latest release from PyPI using:
+
+```sh
+pip install obonet
+```
+
+However, if you'd like to install the most recent version from GitHub, use:
 
 ```sh
 pip install git+https://github.com/dhimmel/obonet.git#egg=obonet
@@ -57,3 +63,22 @@ pip install git+https://github.com/dhimmel/obonet.git#egg=obonet
 We welcome feature suggestions and community contributions.
 Currently, only reading OBO files is supported.
 Please open an issue if you're interested in writing OBO files in Python.
+
+## Release instructions
+
+This section is only relevant for project maintainers.
+Travis CI deployments are used to upload releases to [PyPI](https://pypi.org/project/hetio).
+To create a new release, do the following:
+
+1. Bump the `__version__` in [`obonet/__init__.py`](obonet/__init__.py).
+
+3. Run the following commands:
+    
+  ```sh
+  TAG=v`python setup.py --version`
+  git add obonet/__init__.py
+  git commit --message="Upgrade to $TAG"
+  git push
+  git tag --annotate $TAG --message="Upgrade to $TAG"
+  git push --tags
+  ```
