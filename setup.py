@@ -8,7 +8,7 @@ import setuptools
 directory = os.path.dirname(os.path.abspath(__file__))
 
 # version
-init_path = os.path.join(directory, 'obo', '__init__.py')
+init_path = os.path.join(directory, 'obonet', '__init__.py')
 with open(init_path) as read_file:
     text = read_file.read()
 pattern = re.compile(r"^__version__ = ['\"]([^'\"]*)['\"]", re.MULTILINE)
@@ -30,17 +30,17 @@ except Exception as error:
 
 
 setuptools.setup(
-    name='obo',
+    name='obonet',
     version=version,
     author='Daniel Himmelstein',
     author_email='daniel.himmelstein@gmail.com',
-    url='https://github.com/dhimmel/obo',
-    description='OBO ontology tools in python',
+    url='https://github.com/dhimmel/obonet',
+    description='Parse OBO formatted ontologies into networkx',
     long_description=long_description,
     license='CC0 1.0',
-    packages=['obo'],
+    packages=['obonet'],
 
-    keywords='obo ontology networkx parser',
+    keywords='obo ontology networkx parser network',
     classifiers=[
         'Intended Audience :: Science/Research',
         'Topic :: Scientific/Engineering :: Bio-Informatics',

@@ -1,9 +1,9 @@
 ## A python parser for OBO ontology files
 
-[![Build Status](https://travis-ci.org/dhimmel/obo.svg?branch=master)](https://travis-ci.org/dhimmel/obo)
+[![Build Status](https://travis-ci.org/dhimmel/obonet.svg?branch=master)](https://travis-ci.org/dhimmel/obonet)
 
 This repository contains a python package for handling OBO serialized ontologies.
-The function `obo.read_obo()` takes an `.obo` file and returns a [`networkx.MultiDiGraph`](http://networkx.readthedocs.io/en/stable/reference/classes.multidigraph.html) representation of the ontology.
+The function `obonet.read_obo()` takes an `.obo` file and returns a [`networkx.MultiDiGraph`](http://networkx.readthedocs.io/en/stable/reference/classes.multidigraph.html) representation of the ontology.
 
 The parser aims to be compatible with OBO versions [1.2](https://owlcollab.github.io/oboformat/doc/GO.format.obo-1_2.html) and [1.4](https://owlcollab.github.io/oboformat/doc/GO.format.obo-1_4.html).
 
@@ -16,15 +16,15 @@ See example usage below:
 
 ```python
 import networkx
-import obo
+import obonet
 
 # Read the taxrank ontology
 url = 'https://github.com/dhimmel/obo/raw/master/tests/data/taxrank.obo'
-graph = obo.read_obo(url)
+graph = obonet.read_obo(url)
 
 # Or read the xz-compressed taxrank ontology
 url = 'https://github.com/dhimmel/obo/raw/master/tests/data/taxrank.obo.xz'
-graph = obo.read_obo(url)
+graph = obonet.read_obo(url)
 
 # Number of nodes
 len(graph)
@@ -49,7 +49,7 @@ networkx.descendants(graph, 'TAXRANK:0000006')
 The latest version of the package can be installed using `pip` with:
 
 ```sh
-pip install git+https://github.com/dhimmel/obo.git#egg=obo
+pip install git+https://github.com/dhimmel/obonet.git#egg=obonet
 ```
 
 ## Contributing
