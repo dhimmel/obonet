@@ -46,7 +46,9 @@ networkx.descendants(graph, 'TAXRANK:0000006')
 
 ## Installation
 
-The recommended approach is to install the latest release from PyPI using:
+[![PyPI](https://img.shields.io/pypi/v/obonet.svg)](https://pypi.python.org/pypi/obonet)
+
+The recommended approach is to install the latest release from [PyPI](https://pypi.python.org/pypi/obonet) using:
 
 ```sh
 pip install obonet
@@ -59,6 +61,8 @@ pip install git+https://github.com/dhimmel/obonet.git#egg=obonet
 ```
 
 ## Contributing
+
+[![GitHub issues](https://img.shields.io/github/issues/dhimmel/obonet.svg)](https://github.com/dhimmel/obonet/issues)
 
 We welcome feature suggestions and community contributions.
 Currently, only reading OBO files is supported.
