@@ -24,7 +24,10 @@ def open_read_file(path):
             content = response.read()
         if opener == io.open:
             encoding = response.headers.get_content_charset()
-            text = content.decode(encoding)
+            if encoding:
+                text = content.decode(encoding)
+            else: # default -> utf-8
+                text = content.decode()
             return io.StringIO(text)
         else:
             compressed_bytes = io.BytesIO(content)
