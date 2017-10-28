@@ -23,7 +23,7 @@ def open_read_file(path):
         with urlopen(path) as response:
             content = response.read()
         if opener == io.open:
-            encoding = response.headers.get_content_charset()
+            encoding = response.headers.get_content_charset(failobj="utf-8")
             text = content.decode(encoding)
             return io.StringIO(text)
         else:
