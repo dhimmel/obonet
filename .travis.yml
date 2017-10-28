@@ -8,7 +8,11 @@ python:
 addons:
   apt_packages:
     - pandoc
+env:
+  - NETWORKX_VERSION=1.11
+  - NETWORKX_VERSION=2.0
 install:
+  - pip install networkx==$NETWORKX_VERSION
   - python setup.py install
   - python setup.py sdist bdist_wheel
 script:
