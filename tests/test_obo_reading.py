@@ -1,4 +1,5 @@
 import os
+import pathlib
 
 import pytest
 
@@ -21,12 +22,15 @@ def test_read_taxrank_file():
 
 
 @pytest.mark.parametrize('extension', ['', '.gz', '.bz2', '.xz'])
-def test_read_taxrank_path(extension):
+@pytest.mark.parametrize('pathlike', [False, True])
+def test_read_taxrank_path(extension, pathlike):
     """
     Test reading the taxrank ontology OBO file from paths. Includes reading
     compressed paths.
     """
     path = os.path.join(directory, 'data', 'taxrank.obo' + extension)
+    if pathlike:
+        path = pathlib.Path(path)
     taxrank = obonet.read_obo(path)
     assert len(taxrank) == 61
 

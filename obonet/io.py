@@ -1,6 +1,7 @@
 import importlib
 import io
 import mimetypes
+import pathlib
 import re
 from urllib.request import urlopen
 
@@ -8,9 +9,16 @@ from urllib.request import urlopen
 def open_read_file(path):
     """
     Return a file object from the path. Automatically detects and supports
-    URLs and compression. If path is not a string, it's passed through without
+    URLs and compression. If path is pathlike, it's converted to a string.
+    If path is not a string nor pathlike, it's passed through without
     modification.
     """
+    # Convert pathlike objects to string paths
+    if hasattr(path, '__fspath__'):
+        path = path.__fspath__()
+    elif isinstance(path, pathlib.Path):
+        path = str(path)  # For Python 3.4 and 3.5
+
     if not isinstance(path, str):
         # Passthrough open file buffers without modification
         return path
