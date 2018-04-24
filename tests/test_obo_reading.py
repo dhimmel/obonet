@@ -43,6 +43,17 @@ def test_read_taxrank_url(extension):
     assert len(taxrank) == 61
 
 
+def test_read_brenda_subset():
+    """
+    Test reading a subset of the BrendaTissue.obo file. This file does not set
+    the ontology tag. See https://github.com/dhimmel/obonet/issues/10.
+    """
+    path = os.path.join(directory, 'data', 'brenda-subset.obo')
+    brenda = obonet.read_obo(path)
+    assert len(brenda) == 1
+    assert brenda.graph['name'] is None
+
+
 @pytest.mark.parametrize('ontology', ['doid', 'go', 'pato'])
 def test_read_obo(ontology):
     """

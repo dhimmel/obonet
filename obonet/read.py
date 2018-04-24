@@ -24,7 +24,7 @@ def read_obo(path_or_file):
     typedefs, terms, instances, header = get_sections(obo_file)
     obo_file.close()
     graph = networkx.MultiDiGraph(
-        name=header['ontology'],
+        name=header.get('ontology'),
         typedefs=typedefs,
         instances=instances,
         **header)

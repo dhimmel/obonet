@@ -1,0 +1,30 @@
+format-version: 1.2
+date: 03:05:2016 09:39
+saved-by: Marion, contact@brenda-enzymes.org
+auto-generated-by: OBO-Edit 2.3.1
+synonymtypedef: GE "LANGUAGE GERMAN"
+synonymtypedef: SCI "SCIENTIFIC NAME"
+default-namespace: BrendaTissueOBO
+remark: www.brenda-enzymes.org
+comment: "this is a subset of the BRENDA OBO file for testing purposes" ! See https://github.com/dhimmel/obonet/issues/10 
+
+[Term]
+id: BTO:0000000
+name: tissues, cell types and enzyme sources
+def: "A structured controlled vocabulary for the source of an enzyme. It comprises terms of tissues, cell lines, cell types and cell cultures from uni- and multicellular organisms." [curators:mgr]
+
+[Typedef]
+id: develops_from
+name: derives from/develops from
+
+[Typedef]
+id: is_a
+name: is a
+
+[Typedef]
+id: part_of
+name: part of
+
+[Typedef]
+id: related_to
+name: related to
