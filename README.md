@@ -46,7 +46,7 @@ graph.number_of_edges()
 networkx.is_directed_acyclic_graph(graph)
 
 # Mapping from term ID to name
-id_to_name = {id_: data['name'] for id_, data in graph.nodes(data=True)}
+id_to_name = {id_: data.get('name') for id_, data in graph.nodes(data=True)}
 id_to_name['TAXRANK:0000006']  # TAXRANK:0000006 is species
 
 # Find all superterms of species. Note that networkx.descendants gets
