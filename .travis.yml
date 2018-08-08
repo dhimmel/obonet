@@ -10,7 +10,7 @@ env:
   - NETWORKX_VERSION=2.0
 install:
   - pip install networkx==$NETWORKX_VERSION
-  - python setup.py install
+  - pip install .
   - python setup.py sdist bdist_wheel
 script:
   - py.test
