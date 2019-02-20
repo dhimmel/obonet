@@ -54,7 +54,7 @@ id_to_name['TAXRANK:0000006']  # TAXRANK:0000006 is species
 networkx.descendants(graph, 'TAXRANK:0000006')
 ```
 
-For a more detailed tutorial, see the [**Gene Ontology example notebook**](https://github.com/dhimmel/obonet/examples/go-obonet.ipynb).
+For a more detailed tutorial, see the [**Gene Ontology example notebook**](https://github.com/dhimmel/obonet/blob/master/examples/go-obonet.ipynb).
 
 ## Installation
 
@@ -86,7 +86,7 @@ This section is only relevant for project maintainers.
 Travis CI deployments are used to upload releases to [PyPI](https://pypi.org/project/hetio).
 To create a new release, do the following:
 
-1. Bump the `__version__` in [`obonet/__init__.py`](https://github.com/dhimmel/obonet/obonet/__init__.py).
+1. Bump the `__version__` in [`obonet/__init__.py`](https://github.com/dhimmel/obonet/blob/master/obonet/__init__.py).
 
 3. Run the following commands:
     
