@@ -114,7 +114,7 @@ def test_parse_tag_line_with_tag_value_trailing_modifier_and_comment():
 
 
 def test_parse_tag_line_backslashed_exclamation():
-    line = 'synonym: not a real example \!\n'
+    line = 'synonym: not a real example \\!\n'
     tag, value, trailing_modifier, comment = parse_tag_line(line)
     assert tag == 'synonym'
-    assert value == 'not a real example \!'
+    assert value == r'not a real example \!'
