@@ -1,17 +1,25 @@
-### Linux ###
-*~
-
-
-### Python ###
+# Python
 __pycache__/
 *.egg-info/
 dist/
-
-# Unit test / coverage reports
 .cache
 .pytest_cache/
-
-
-### IPythonNotebook ###
-# Temporary data
 .ipynb_checkpoints/
+
+# System specific files
+
+## Linux
+*~
+.Trash-*
+
+## macOS
+.DS_Store
+._*
+.Trashes
+
+## Windows
+Thumbs.db
+[Dd]esktop.ini
+
+## Text Editors
+.vscode
