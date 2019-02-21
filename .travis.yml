@@ -7,8 +7,8 @@ python:
   - "3.6"
   - "3.7"
 env:
-  - NETWORKX_VERSION=1.11
-  - NETWORKX_VERSION=2.0
+  - NETWORKX_VERSION=1.*
+  - NETWORKX_VERSION=2.*
 install:
   - pip install networkx==$NETWORKX_VERSION
   - pip install .
@@ -22,7 +22,7 @@ deploy:
       secure: M3uAhXVdyyM69DoeiGdqIk+epOKr60NN1hAtncPJoo1nP3tZTT7zDiocemXszmCxyNhlAfD5xREVaQouwFbLxv1BleaxLUCyw81+VpAy4JW+4qTHrbWYedXXMYp+tOpRa3q4q6nLFTRVF6Nx6Yx/88UibiYj/soI2CcM7xekMCfs3LwSJwVHjXD++NvUFw913uqlRau2MZYnZDiVFUbkC5OJ+ulef7yG+HvmhJ/snL0nJY12ecThqV/ZWeoiAp1TFQKC38Z/k01SXHKTXJ6upknWWQQK9csisQ9r+E4u4XibMMPKV0PHKl3mP+vFTyAU2CDmXKvLzIGFdPAB/mp4KrEu8UB8bWJ07RdbPkohTHFv594qBUEA1AITnHQQp+KzFdMNQaK6Em98kdEThSxUrNTf9eNXWbEhtGhITGbYVtRXZPUfl3nYaM8H0iBUtYfC/ZrP+HDhZBMo6c00yvZDQQI1TwZOO2dooDsnwdd/HkqzhVKxqDKvQLhZnc9bwFhQvnxjcX2W2CwZvQqmw1ejKGtnp1/em9AYCn9PcoiiTWs1Su7LV5VeL09X3p1VAExCemrGSoYuEBZaPAMzUs1AqatbTfAry8LJ5Aab4PLx9eDESf16/vdo7WWNFuJMp+iGDf4jwFQZcV/Dnr0zXbMupYogaT/pi0KI0wT6+UZpQ0M=
     on:
       python: "3.7"
-      condition: $NETWORKX_VERSION = 2.0
+      condition: $NETWORKX_VERSION = 2.*
       repo: dhimmel/obonet
       tags: true
       distributions: sdist bdist_wheel
