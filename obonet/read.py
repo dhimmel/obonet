@@ -6,7 +6,7 @@ import networkx
 from .io import open_read_file
 
 
-def read_obo(path_or_file):
+def read_obo(path_or_file, ignore_obsolete=True):
     """
     Return a networkx.MultiDiGraph of the ontology serialized by the
     specified path or file.
@@ -19,6 +19,9 @@ def read_obo(path_or_file):
     path_or_file : str or file
         Path, URL, or open file object. If path or URL, compression is
         inferred from the file extension.
+    ignore_obsolete : boolean
+        When true (default), terms that are marked 'is_obsolete' will
+        not be added to the graph. 
     """
     obo_file = open_read_file(path_or_file)
     typedefs, terms, instances, header = get_sections(obo_file)
@@ -32,7 +35,7 @@ def read_obo(path_or_file):
     edge_tuples = list()
 
     for term in terms:
-        is_obsolete = term.get('is_obsolete', 'false') == 'true'
+        is_obsolete = ignore_obsolete and term.get('is_obsolete', 'false') == 'true'
         if is_obsolete:
             continue
         term_id = term.pop('id')
