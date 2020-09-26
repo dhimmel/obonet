@@ -17,8 +17,9 @@ def test_read_taxrank_file():
     with open(path, 'rt') as read_file:
         taxrank = obonet.read_obo(read_file)
     assert len(taxrank) == 61
-    assert taxrank.node['TAXRANK:0000001']['name'] == 'phylum'
-    assert 'NCBITaxon:kingdom' in taxrank.node['TAXRANK:0000017']['xref']
+    # It looks like networkx has changed the name of the node variable to nodes -- EST 2020-09-25
+    assert taxrank.nodes['TAXRANK:0000001']['name'] == 'phylum'
+    assert 'NCBITaxon:kingdom' in taxrank.nodes['TAXRANK:0000017']['xref']
 
 
 @pytest.mark.parametrize('extension', ['', '.gz', '.bz2', '.xz'])
@@ -118,3 +119,15 @@ def test_parse_tag_line_backslashed_exclamation():
     tag, value, trailing_modifier, comment = parse_tag_line(line)
     assert tag == 'synonym'
     assert value == r'not a real example \!'
+
+def test_ignore_obsolete_nodes():
+    hpo = obonet.read_obo("http://purl.obolibrary.org/obo/hp.obo")
+    nodes = hpo.nodes(data=True)
+    assert "HP:0005549" not in nodes
+
+def test_presence_of_obsolete_nodes():
+    hpo = obonet.read_obo("http://purl.obolibrary.org/obo/hp.obo", ignore_obsolete=False)
+    nodes = hpo.nodes(data=True)
+    assert "HP:0005549" in nodes
+    node = nodes['HP:0005549']
+    assert node['is_obsolete'] == 'true'
