@@ -125,6 +125,7 @@ def test_ignore_obsolete_nodes():
     assert "BTO:0000311" not in nodes
 
 def test_presence_of_obsolete_nodes():
+    pytest.importorskip("networkx", minversion="2.0")
     path = os.path.join(directory, 'data', 'brenda-subset.obo')
     brenda = obonet.read_obo(path, ignore_obsolete=False)
     nodes = brenda.nodes(data=True)
