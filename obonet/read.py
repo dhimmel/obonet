@@ -35,8 +35,8 @@ def read_obo(path_or_file, ignore_obsolete=True):
     edge_tuples = list()
 
     for term in terms:
-        is_obsolete = ignore_obsolete and term.get('is_obsolete', 'false') == 'true'
-        if is_obsolete:
+        is_obsolete = term.get('is_obsolete', 'false') == 'true'
+        if ignore_obsolete and is_obsolete:
             continue
         term_id = term.pop('id')
         graph.add_node(term_id, **term)
