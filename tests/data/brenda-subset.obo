@@ -13,6 +13,12 @@ id: BTO:0000000
 name: tissues, cell types and enzyme sources
 def: "A structured controlled vocabulary for the source of an enzyme. It comprises terms of tissues, cell lines, cell types and cell cultures from uni- and multicellular organisms." [curators:mgr]
 
+[Term]
+id: BTO:0000311
+name: culture filtrate
+comment: Added as synonym to culture fluid.
+is_obsolete: true
+
 [Typedef]
 id: develops_from
 name: derives from/develops from
@@ -28,3 +34,4 @@ name: part of
 [Typedef]
 id: related_to
 name: related to
+
