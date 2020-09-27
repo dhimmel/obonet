@@ -30,14 +30,16 @@ setuptools.setup(
     description="Parse OBO formatted ontologies into networkx",
     long_description_content_type="text/markdown",
     long_description=long_description,
-    license="BSD-2-Clause Plus Patent License",
+    license="BSD-2-Clause-Patent",
     packages=["obonet"],
     keywords="obo ontology networkx parser network",
     classifiers=[
         "Intended Audience :: Science/Research",
         "Topic :: Scientific/Engineering :: Bio-Informatics",
         "Topic :: Scientific/Engineering :: Information Analysis",
-        "License :: OSI Approved :: BSD 2-Clause Plus Patent License (BSD-2-Clause-Patent)",
+        "License :: OSI Approved :: BSD License",
+        # not a valid classifier. see https://github.com/pypa/trove-classifiers/issues/17
+        # "License :: OSI Approved :: BSD 2-Clause Plus Patent License (BSD-2-Clause-Patent)",
         "Programming Language :: Python :: 3",
     ],
     # Dependencies
