@@ -93,8 +93,8 @@ To create a new release, do the following:
   ```sh
   TAG=v`python setup.py --version`
   git add obonet/__init__.py
-  git commit --message="Upgrade to $TAG"
+  git commit --message="Upgrade version to $TAG"
   git push
-  git tag --annotate $TAG --message="Upgrade to $TAG"
+  git tag --annotate $TAG --message="Release $TAG"
   git push --tags
   ```
