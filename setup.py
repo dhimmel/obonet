@@ -37,6 +37,7 @@ setuptools.setup(
         "Programming Language :: Python :: 3",
     ],
     # Dependencies
+    python_requires=">=3",
     install_requires=[
         "networkx",
     ],

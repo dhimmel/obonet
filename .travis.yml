@@ -1,11 +1,11 @@
-dist: xenial
+dist: focal
 sudo: false
 language: python
 python:
-  - "3.4"
   - "3.5"
   - "3.6"
   - "3.7"
+  - "3.8"
 env:
   - NETWORKX_VERSION=1.*
   - NETWORKX_VERSION=2.*
@@ -14,13 +14,13 @@ install:
   - pip install .
   - python setup.py sdist bdist_wheel
 script:
-  - py.test
+  - pytest
 deploy:
   - provider: pypi
     user: __token__
     password: $pypi_password
     on:
-      python: "3.7"
+      python: "3.8"
       condition: $NETWORKX_VERSION = 2.*
       repo: dhimmel/obonet
       tags: true
