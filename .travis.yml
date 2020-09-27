@@ -1,5 +1,5 @@
+os: linux
 dist: focal
-sudo: false
 language: python
 python:
   - "3.5"
@@ -17,11 +17,11 @@ script:
   - pytest --color=yes
 deploy:
   - provider: pypi
-    user: __token__
+    username: __token__
     password: $pypi_password
     on:
       python: "3.8"
       condition: $NETWORKX_VERSION = 2.*
       repo: dhimmel/obonet
       tags: true
-      distributions: sdist bdist_wheel
+    distributions: sdist bdist_wheel
