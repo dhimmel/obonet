@@ -8,17 +8,17 @@ from obonet.read import parse_tag_line
 
 directory = os.path.dirname(os.path.abspath(__file__))
 
-
 def test_read_taxrank_file():
     """
     Test reading the taxrank ontology OBO file.
     """
+    pytest.importorskip("networkx", minversion="2.0")
     path = os.path.join(directory, 'data', 'taxrank.obo')
     with open(path, 'rt') as read_file:
         taxrank = obonet.read_obo(read_file)
     assert len(taxrank) == 61
-    assert taxrank.node['TAXRANK:0000001']['name'] == 'phylum'
-    assert 'NCBITaxon:kingdom' in taxrank.node['TAXRANK:0000017']['xref']
+    assert taxrank.nodes['TAXRANK:0000001']['name'] == 'phylum'
+    assert 'NCBITaxon:kingdom' in taxrank.nodes['TAXRANK:0000017']['xref']
 
 
 @pytest.mark.parametrize('extension', ['', '.gz', '.bz2', '.xz'])
@@ -118,3 +118,20 @@ def test_parse_tag_line_backslashed_exclamation():
     tag, value, trailing_modifier, comment = parse_tag_line(line)
     assert tag == 'synonym'
     assert value == r'not a real example \!'
+
+def test_ignore_obsolete_nodes():
+    """Quick verification that the change doesn't break anything"""
+    path = os.path.join(directory, 'data', 'brenda-subset.obo')
+    brenda = obonet.read_obo(path)
+    nodes = brenda.nodes(data=True)
+    assert "BTO:0000311" not in nodes
+
+def test_presence_of_obsolete_nodes():
+    """Test that we did, indeed, capture those obsolete entries"""
+    pytest.importorskip("networkx", minversion="2.0")
+    path = os.path.join(directory, 'data', 'brenda-subset.obo')
+    brenda = obonet.read_obo(path, ignore_obsolete=False)
+    nodes = brenda.nodes(data=True)
+    assert "BTO:0000311" in nodes
+    node = nodes['BTO:0000311']
+    assert node['is_obsolete'] == 'true'
