@@ -14,7 +14,7 @@ install:
   - pip install .
   - python setup.py sdist bdist_wheel
 script:
-  - pytest
+  - pytest --color=yes
 deploy:
   - provider: pypi
     user: __token__
