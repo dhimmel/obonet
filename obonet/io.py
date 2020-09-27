@@ -14,7 +14,7 @@ def open_read_file(path):
     modification.
     """
     # Convert pathlike objects to string paths
-    if hasattr(path, '__fspath__'):
+    if hasattr(path, "__fspath__"):
         path = path.__fspath__()
     elif isinstance(path, pathlib.Path):
         path = str(path)  # For Python 3.4 and 3.5
@@ -27,7 +27,7 @@ def open_read_file(path):
     opener = get_opener(path)
 
     # Read from URL
-    if re.match('^(http|ftp)s?://', path):
+    if re.match("^(http|ftp)s?://", path):
         with urlopen(path) as response:
             content = response.read()
         if opener == io.open:
@@ -36,16 +36,16 @@ def open_read_file(path):
             return io.StringIO(text)
         else:
             compressed_bytes = io.BytesIO(content)
-            return opener(compressed_bytes, 'rt')
+            return opener(compressed_bytes, "rt")
 
     # Read from file
-    return opener(path, 'rt')
+    return opener(path, "rt")
 
 
 encoding_to_module = {
-    'gzip': 'gzip',
-    'bzip2': 'bz2',
-    'xz': 'lzma',
+    "gzip": "gzip",
+    "bzip2": "bz2",
+    "xz": "lzma",
 }
 
 
