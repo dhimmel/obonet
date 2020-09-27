@@ -23,17 +23,21 @@ setuptools.setup(
     author="Daniel Himmelstein",
     author_email="daniel.himmelstein@gmail.com",
     url="https://github.com/dhimmel/obonet",
+    project_urls={
+        "Source": "https://github.com/dhimmel/obonet",
+        "Tracker": "https://github.com/dhimmel/obonet/issues",
+    },
     description="Parse OBO formatted ontologies into networkx",
     long_description_content_type="text/markdown",
     long_description=long_description,
-    license="CC0 1.0",
+    license="BSD-2-Clause Plus Patent License",
     packages=["obonet"],
     keywords="obo ontology networkx parser network",
     classifiers=[
         "Intended Audience :: Science/Research",
         "Topic :: Scientific/Engineering :: Bio-Informatics",
         "Topic :: Scientific/Engineering :: Information Analysis",
-        "License :: CC0 1.0 Universal (CC0 1.0) Public Domain Dedication",
+        "License :: OSI Approved :: BSD 2-Clause Plus Patent License (BSD-2-Clause-Patent)",
         "Programming Language :: Python :: 3",
     ],
     # Dependencies
