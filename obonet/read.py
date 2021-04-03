@@ -9,6 +9,7 @@ from .io import open_read_file
 
 logger = logging.getLogger(__name__)
 
+
 def read_obo(path_or_file, ignore_obsolete=True):
     """
     Return a networkx.MultiDiGraph of the ontology serialized by the
@@ -29,14 +30,12 @@ def read_obo(path_or_file, ignore_obsolete=True):
     obo_file = open_read_file(path_or_file)
     typedefs, terms, instances, header = get_sections(obo_file)
     obo_file.close()
-    
-    if 'ontology' in header:
-        header['name'] = header.pop('ontology')
-    elif 'name' not in header:
-        logging.warning('name and ontology keys are both missing')
-    graph = networkx.MultiDiGraph(
-        typedefs=typedefs, instances=instances, **header
-    )
+
+    if "ontology" in header:
+        header["name"] = header.pop("ontology")
+    elif "name" not in header:
+        logging.warning("name and ontology keys are both missing")
+    graph = networkx.MultiDiGraph(typedefs=typedefs, instances=instances, **header)
 
     edge_tuples = list()
 
