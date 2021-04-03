@@ -1,9 +1,13 @@
 import itertools
+import logging
 import re
 
 import networkx
 
 from .io import open_read_file
+
+
+logger = logging.getLogger(__name__)
 
 
 def read_obo(path_or_file, ignore_obsolete=True):
@@ -26,9 +30,12 @@ def read_obo(path_or_file, ignore_obsolete=True):
     obo_file = open_read_file(path_or_file)
     typedefs, terms, instances, header = get_sections(obo_file)
     obo_file.close()
-    graph = networkx.MultiDiGraph(
-        name=header.get("ontology"), typedefs=typedefs, instances=instances, **header
-    )
+
+    if "ontology" in header:
+        header["name"] = header.get("ontology")
+    if "name" not in header:
+        logging.warning("name and ontology keys are both missing")
+    graph = networkx.MultiDiGraph(typedefs=typedefs, instances=instances, **header)
 
     edge_tuples = list()
 
