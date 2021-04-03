@@ -32,8 +32,8 @@ def read_obo(path_or_file, ignore_obsolete=True):
     obo_file.close()
 
     if "ontology" in header:
-        header["name"] = header.pop("ontology")
-    elif "name" not in header:
+        header["name"] = header.get("ontology")
+    if "name" not in header:
         logging.warning("name and ontology keys are both missing")
     graph = networkx.MultiDiGraph(typedefs=typedefs, instances=instances, **header)
 
