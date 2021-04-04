@@ -56,7 +56,8 @@ def test_read_brenda_subset():
     path = os.path.join(directory, "data", "brenda-subset.obo")
     brenda = obonet.read_obo(path)
     assert len(brenda) == 1
-    assert brenda.graph["name"] is None
+    assert "name" not in brenda.graph
+    assert "ontology" not in brenda.graph
 
 
 @pytest.mark.parametrize("ontology", ["doid", "go", "pato"])
