@@ -106,6 +106,11 @@ pre-commit run --all
 
 # run tests
 pytest
+
+# generate changelog for release notes
+git fetch --tags origin main
+OLD_TAG=$(git describe --tags --abbrev=0)
+git log --oneline --decorate=no --reverse $OLD_TAG..HEAD
 ```
 
 Maintainers can make a new release at <https://github.com/dhimmel/obonet/releases/new>.
