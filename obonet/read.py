@@ -6,7 +6,6 @@ import networkx
 
 from .io import open_read_file
 
-
 logger = logging.getLogger(__name__)
 
 
