@@ -62,9 +62,7 @@ For a more detailed tutorial, see the [**Gene Ontology example notebook**](https
 
 ## Installation
 
-[![PyPI](https://img.shields.io/pypi/v/obonet.svg)](https://pypi.org/project/hetio/)
-
-The recommended approach is to install the latest release from [PyPI](https://pypi.org/project/hetio/) using:
+The recommended approach is to install the latest release from [PyPI](https://pypi.org/project/obonet/) using:
 
 ```sh
 pip install obonet
@@ -78,7 +76,7 @@ pip install git+https://github.com/dhimmel/obonet.git#egg=obonet
 
 ## Contributing
 
-[![GitHub issues](https://img.shields.io/github/issues/dhimmel/obonet.svg)](https://github.com/dhimmel/obonet/issues)
+[![GitHub issues](https://img.shields.io/github/issues/dhimmel/obonet.svg?style=for-the-badge)](https://github.com/dhimmel/obonet/issues)
 
 We welcome feature suggestions and community contributions.
 Currently, only reading OBO files is supported.

@@ -7,6 +7,7 @@ dist/
 .ipynb_checkpoints/
 env/
 pip-wheel-metadata/
+.mypy_cache/
 
 # System specific files
 
