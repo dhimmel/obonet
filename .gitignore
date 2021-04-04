@@ -5,6 +5,8 @@ dist/
 .cache
 .pytest_cache/
 .ipynb_checkpoints/
+env/
+pip-wheel-metadata/
 
 # System specific files
 
