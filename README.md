@@ -1,6 +1,10 @@
 # obonet: load OBO-formatted ontologies into networkx
 
-[![Build Status](https://travis-ci.org/dhimmel/obonet.svg?branch=master)](https://travis-ci.org/dhimmel/obonet)
+[![GitHub Actions CI Build Status](https://img.shields.io/github/workflow/status/dhimmel/obonet/Build?label=actions&style=for-the-badge&logo=github&logoColor=white)](https://github.com/dhimmel/obonet/actions)  
+[![Software License](https://img.shields.io/github/license/dhimmel/obonet?style=for-the-badge&logo=FreeBSD&logoColor=white)](https://github.com/dhimmel/obonet/blob/master/LICENSE)  
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg?style=for-the-badge&logo=Python&logoColor=white)](https://github.com/psf/black)  
+[![PyPI](https://img.shields.io/pypi/v/obonet.svg?style=for-the-badge&logo=PyPI&logoColor=white)](https://pypi.org/project/obonet/)  
+
 
 Read OBO-formatted ontologies in Python.
 `obonet` is
