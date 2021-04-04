@@ -1,7 +1,7 @@
 # obonet: load OBO-formatted ontologies into networkx
 
 [![GitHub Actions CI Build Status](https://img.shields.io/github/workflow/status/dhimmel/obonet/Build?label=actions&style=for-the-badge&logo=github&logoColor=white)](https://github.com/dhimmel/obonet/actions)  
-[![Software License](https://img.shields.io/github/license/dhimmel/obonet?style=for-the-badge&logo=FreeBSD&logoColor=white)](https://github.com/dhimmel/obonet/blob/master/LICENSE)  
+[![Software License](https://img.shields.io/pypi/l/obonet?style=for-the-badge&logo=FreeBSD&logoColor=white)](https://github.com/dhimmel/obonet/blob/main/LICENSE)  
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg?style=for-the-badge&logo=Python&logoColor=white)](https://github.com/psf/black)  
 [![PyPI](https://img.shields.io/pypi/v/obonet.svg?style=for-the-badge&logo=PyPI&logoColor=white)](https://pypi.org/project/obonet/)  
 
@@ -33,11 +33,11 @@ import networkx
 import obonet
 
 # Read the taxrank ontology
-url = 'https://github.com/dhimmel/obonet/raw/master/tests/data/taxrank.obo'
+url = 'https://github.com/dhimmel/obonet/raw/main/tests/data/taxrank.obo'
 graph = obonet.read_obo(url)
 
 # Or read the xz-compressed taxrank ontology
-url = 'https://github.com/dhimmel/obonet/raw/master/tests/data/taxrank.obo.xz'
+url = 'https://github.com/dhimmel/obonet/raw/main/tests/data/taxrank.obo.xz'
 graph = obonet.read_obo(url)
 
 # Number of nodes
@@ -58,7 +58,7 @@ id_to_name['TAXRANK:0000006']  # TAXRANK:0000006 is species
 networkx.descendants(graph, 'TAXRANK:0000006')
 ```
 
-For a more detailed tutorial, see the [**Gene Ontology example notebook**](https://github.com/dhimmel/obonet/blob/master/examples/go-obonet.ipynb).
+For a more detailed tutorial, see the [**Gene Ontology example notebook**](https://github.com/dhimmel/obonet/blob/main/examples/go-obonet.ipynb).
 
 ## Installation
 

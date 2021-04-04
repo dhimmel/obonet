@@ -42,7 +42,7 @@ def test_read_taxrank_url(extension):
     Test reading the taxrank ontology OBO file from paths. Includes reading
     compressed paths.
     """
-    url = "https://github.com/dhimmel/obonet/raw/master/tests/data/taxrank.obo"
+    url = "https://github.com/dhimmel/obonet/raw/main/tests/data/taxrank.obo"
     url += extension
     taxrank = obonet.read_obo(url)
     assert len(taxrank) == 61
