@@ -60,6 +60,31 @@ networkx.descendants(graph, 'TAXRANK:0000006')
 
 For a more detailed tutorial, see the [**Gene Ontology example notebook**](https://github.com/dhimmel/obonet/blob/main/examples/go-obonet.ipynb).
 
+## Comparison
+
+This package specializes in reading OBO files into a `newtorkx.MultiDiGraph`.
+A more general ontology-to-NetworkX reader is available in the Python [nxontology package](https://github.com/related-sciences/nxontology) via the `nxontology.imports.pronto_to_multidigraph` function.
+This function takes a `pronto.Ontology` object,
+which can be loaded from an OBO file, OBO Graphs JSON file, or Ontology Web Language 2 RDF/XML file (OWL).
+Using `pronto_to_multidigraph` allows creating a MultiDiGraph similar to the created by `obonet`,
+with some differences in the amount of metadata retained.
+
+The primary focus of the `nxontology` package is to provide an `NXOntology` class for representing ontologies based around a `networkx.DiGraph`.
+NXOntology provides optimized implementations for computing node similarity and other intrinsic ontology metrics.
+There are two important differences between a DiGraph for NXOntology and the MultiDiGraph produced by obonet:
+
+1. NXOntology is based on a DiGraph that does not allow multiple edges between the same two nodes.
+   Multiple edges between the same two nodes must therefore be collapsed.
+   By default, it only considers _is a_ / `rdfs:subClassOf` relationships,
+   but using `pronto_to_multidigraph` to create the NXOntology allows for retaining additional relationship types, like _part of_ in the case of the Gene Ontology.
+
+2. NXOntology reverses the direction of relationships so edges go from superterm to subterm.
+   Traditionally in ontologies, the _is a_ relationships go from subterm to superterm,
+   but this is confusing.
+   NXOntology reverses edges so functions such as _ancestors_ refer to more general concepts and _descendants_ refer to more specific concepts.
+
+The `nxontology.imports.multidigraph_to_digraph` function converts from a MultiDiGraph, like the one produced by obonet, to a DiGraph by filtering to the desired relationship types, reversing edges, and collapsing parallel edges.
+
 ## Installation
 
 The recommended approach is to install the latest release from [PyPI](https://pypi.org/project/obonet/) using:
