@@ -15,7 +15,7 @@ def test_read_taxrank_file():
     """
     pytest.importorskip("networkx", minversion="2.0")
     path = os.path.join(directory, "data", "taxrank.obo")
-    with open(path, "rt") as read_file:
+    with open(path) as read_file:
         taxrank = obonet.read_obo(read_file)
     assert len(taxrank) == 61
     assert taxrank.nodes["TAXRANK:0000001"]["name"] == "phylum"
@@ -65,7 +65,7 @@ def test_read_obo(ontology):
     """
     Test that reading ontology does not error.
     """
-    url = "http://purl.obolibrary.org/obo/{}.obo".format(ontology)
+    url = f"http://purl.obolibrary.org/obo/{ontology}.obo"
     graph = obonet.read_obo(url)
     assert graph
 

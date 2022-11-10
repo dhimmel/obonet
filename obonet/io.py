@@ -1,7 +1,6 @@
 import importlib
 import io
 import mimetypes
-import pathlib
 import re
 from urllib.request import urlopen
 
@@ -16,8 +15,6 @@ def open_read_file(path):
     # Convert pathlike objects to string paths
     if hasattr(path, "__fspath__"):
         path = path.__fspath__()
-    elif isinstance(path, pathlib.Path):
-        path = str(path)  # For Python 3.4 and 3.5
 
     if not isinstance(path, str):
         # Passthrough open file buffers without modification

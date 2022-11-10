@@ -102,7 +102,7 @@ def parse_tag_line(line):
     """
     match = re.match(tag_line_pattern, line)
     if match is None:
-        message = "Tag-value pair parsing failed for:\n{}".format(line)
+        message = f"Tag-value pair parsing failed for:\n{line}"
         raise ValueError(message)
     tag = match.group("tag")
     value = match.group("value")
