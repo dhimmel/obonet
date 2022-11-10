@@ -23,7 +23,7 @@ The parser was designed for the OBO specification version [1.2](https://owlcolla
 
 ## Usage
 
-This package is designed and tested on python ≥ 3.4.
+See [`setup.cfg`](setup.cfg) for the minimum Python version required and the dependencies.
 OBO files can be read from a path, URL, or open file handle.
 Compression is inferred from the path's extension.
 See example usage below:
