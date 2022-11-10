@@ -68,6 +68,7 @@ def get_sections(lines):
     dictionaries and `header` is a dictionary.
     """
     typedefs, terms, instances = [], [], []
+    header = None
     groups = itertools.groupby(lines, lambda line: line.strip() == "")
     for is_blank, stanza_lines in groups:
         if is_blank:
@@ -86,6 +87,9 @@ def get_sections(lines):
         else:
             stanza_lines = [stanza_type_line] + stanza_lines
             header = parse_stanza(stanza_lines, header_tag_singularity)
+    if header is None:
+        logger.warning("got no header information")
+        header = {}
     return typedefs, terms, instances, header
 
 
