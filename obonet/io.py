@@ -1,5 +1,6 @@
 import importlib
 import io
+import logging
 import mimetypes
 import re
 from urllib.request import urlopen
@@ -29,6 +30,7 @@ def open_read_file(path):
             content = response.read()
         if opener == io.open:
             encoding = response.headers.get_content_charset(failobj="utf-8")
+            logging.info(f"Will decode content from {path} using {encoding} charset.")
             text = content.decode(encoding)
             return io.StringIO(text)
         else:
@@ -39,7 +41,7 @@ def open_read_file(path):
     return opener(path, "rt")
 
 
-encoding_to_module = {
+compression_to_module = {
     "gzip": "gzip",
     "bzip2": "bz2",
     "xz": "lzma",
@@ -50,10 +52,10 @@ def get_opener(filename):
     """
     Automatically detect compression and return the file opening function.
     """
-    type_, encoding = mimetypes.guess_type(filename)
-    if encoding is None:
+    _type, compression = mimetypes.guess_type(filename)
+    if compression is None:
         opener = io.open
     else:
-        module = encoding_to_module[encoding]
+        module = compression_to_module[compression]
         opener = importlib.import_module(module).open
     return opener

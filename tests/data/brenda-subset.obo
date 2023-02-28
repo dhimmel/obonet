@@ -6,7 +6,7 @@ synonymtypedef: GE "LANGUAGE GERMAN"
 synonymtypedef: SCI "SCIENTIFIC NAME"
 default-namespace: BrendaTissueOBO
 remark: www.brenda-enzymes.org
-comment: "this is a subset of the BRENDA OBO file for testing purposes" ! See https://github.com/dhimmel/obonet/issues/10 
+comment: "this is a subset of the BRENDA OBO file for testing purposes. ™⏸⟟⎞▹◬⽷⹽⫥⠷⩶⥣ⱸ♖⬭⌉⌐⦦" ! See https://github.com/dhimmel/obonet/issues/10 and https://github.com/dhimmel/obonet/issues/27
 
 [Term]
 id: BTO:0000000

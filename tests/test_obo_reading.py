@@ -51,13 +51,16 @@ def test_read_taxrank_url(extension):
 def test_read_brenda_subset():
     """
     Test reading a subset of the BrendaTissue.obo file. This file does not set
-    the ontology tag. See https://github.com/dhimmel/obonet/issues/10.
+    the ontology tag. See <https://github.com/dhimmel/obonet/issues/10>.
+    It also contains some unicode characters that should fail if not read as utf-8,
+    see <https://github.com/dhimmel/obonet/issues/27>.
     """
     path = os.path.join(directory, "data", "brenda-subset.obo")
     brenda = obonet.read_obo(path)
     assert len(brenda) == 1
     assert "name" not in brenda.graph
     assert "ontology" not in brenda.graph
+    assert "™⏸⟟⎞▹◬⽷⹽⫥⠷⩶⥣ⱸ♖⬭⌉⌐⦦" in brenda.graph["comment"][0]
 
 
 @pytest.mark.parametrize("ontology", ["doid", "go", "pato"])
