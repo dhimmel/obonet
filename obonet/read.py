@@ -36,7 +36,7 @@ def read_obo(path_or_file, ignore_obsolete=True):
         logging.warning("name and ontology keys are both missing")
     graph = networkx.MultiDiGraph(typedefs=typedefs, instances=instances, **header)
 
-    edge_tuples = list()
+    edge_tuples = []
 
     for term in terms:
         is_obsolete = term.get("is_obsolete", "false") == "true"
@@ -123,7 +123,7 @@ def parse_stanza(lines, tag_singularity):
     """
     Returns a dictionary representation of a stanza.
     """
-    stanza = dict()
+    stanza = {}
     for line in lines:
         if line.startswith("!"):
             continue
