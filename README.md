@@ -10,7 +10,7 @@ Read OBO-formatted ontologies in Python.
 `obonet` is
 
 + user friendly
-+ no nonsense
++ succinct
 + pythonic
 + modern
 + simple and tested
@@ -23,7 +23,7 @@ The parser was designed for the OBO specification version [1.2](https://owlcolla
 
 ## Usage
 
-See [`setup.cfg`](setup.cfg) for the minimum Python version required and the dependencies.
+See [`pyproject.toml`](pyproject.toml) for the minimum Python version required and the dependencies.
 OBO files can be read from a path, URL, or open file handle.
 Compression is inferred from the path's extension.
 See example usage below:
@@ -105,7 +105,6 @@ pip install git+https://github.com/dhimmel/obonet.git#egg=obonet
 
 We welcome feature suggestions and community contributions.
 Currently, only reading OBO files is supported.
-Please open an issue if you're interested in writing OBO files in Python.
 
 ## Develop
 
