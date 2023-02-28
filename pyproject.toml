@@ -70,6 +70,23 @@ select = [
     "W",  # pycode warnings
 ]
 
+[tool.mypy]
+python_version = "3.7"
+strict = true
+
+
 [[tool.mypy.overrides]]
-module = ["networkx.*", "setuptools.*", "pytest.*", "_pytest.*"]
+module = [
+    "networkx.*",
+    "setuptools.*",
+    "pkg_resources.*",
+    "pytest.*",
+    "_pytest.*",
+]
 ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = [
+    "tests.*",
+]
+disallow_untyped_decorators = false

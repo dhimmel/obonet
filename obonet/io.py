@@ -4,11 +4,15 @@ import importlib
 import io
 import logging
 import mimetypes
+import os
 import re
+from typing import Callable, TextIO, Union
 from urllib.request import urlopen
 
+PathType = Union[str, os.PathLike, TextIO]
 
-def open_read_file(path, encoding: str | None = None):
+
+def open_read_file(path: PathType, encoding: str | None = None) -> TextIO:
     """
     Return a file object from the path. Automatically detects and supports
     URLs and compression. If path is pathlike, it's converted to a string.
@@ -18,7 +22,7 @@ def open_read_file(path, encoding: str | None = None):
     """
     # Convert pathlike objects to string paths
     if hasattr(path, "__fspath__"):
-        path = path.__fspath__()
+        path = os.fspath(path)
 
     if not isinstance(path, str):
         # Passthrough open file buffers without modification
@@ -52,7 +56,7 @@ compression_to_module = {
 }
 
 
-def get_opener(filename):
+def get_opener(filename: str) -> Callable[..., TextIO]:
     """
     Automatically detect compression and return the file opening function.
     """

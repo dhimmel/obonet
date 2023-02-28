@@ -3,17 +3,17 @@ from __future__ import annotations
 import itertools
 import logging
 import re
-from typing import Any
+from typing import Any, Iterator
 
 import networkx
 
-from .io import open_read_file
+from .io import PathType, open_read_file
 
 logger = logging.getLogger(__name__)
 
 
 def read_obo(
-    path_or_file, ignore_obsolete: bool = True, encoding: str | None = "utf-8"
+    path_or_file: PathType, ignore_obsolete: bool = True, encoding: str | None = "utf-8"
 ) -> networkx.MultiDiGraph[str]:
     """
     Return a networkx.MultiDiGraph of the ontology serialized by the
@@ -34,9 +34,8 @@ def read_obo(
         The character set encoding to use for path_or_file when path_or_file
         is a path/URL. Set to None for platform-dependent locale default.
     """
-    obo_file = open_read_file(path_or_file, encoding=encoding)
-    typedefs, terms, instances, header = get_sections(obo_file)
-    obo_file.close()
+    with open_read_file(path_or_file, encoding=encoding) as obo_file:
+        typedefs, terms, instances, header = get_sections(obo_file)
 
     if "ontology" in header:
         header["name"] = header.get("ontology")
@@ -69,7 +68,7 @@ def read_obo(
 
 
 def get_sections(
-    lines,
+    lines: Iterator[str],
 ) -> tuple[
     list[dict[str, Any]], list[dict[str, Any]], list[dict[str, Any]], dict[str, Any]
 ]:
@@ -82,11 +81,10 @@ def get_sections(
     typedefs, terms, instances = [], [], []
     header = None
     groups = itertools.groupby(lines, lambda line: line.strip() == "")
-    for is_blank, stanza_lines in groups:
+    for is_blank, stanza_lines_iter in groups:
         if is_blank:
             continue
-        stanza_type_line = next(stanza_lines)
-        stanza_lines = list(stanza_lines)
+        stanza_type_line, *stanza_lines = stanza_lines_iter
         if stanza_type_line.startswith("[Typedef]"):
             typedef = parse_stanza(stanza_lines, typedef_tag_singularity)
             typedefs.append(typedef)
@@ -108,7 +106,7 @@ def get_sections(
 # regular expression to parse key-value pair lines.
 tag_line_pattern = re.compile(
     r"^(?P<tag>.+?): *(?P<value>.+?) ?(?P<trailing_modifier>(?<!\\)\{.*?(?<!\\)\})? ?(?P<comment>(?<!\\)!.*?)?$"
-)  # noqa: E501
+)
 
 
 def parse_tag_line(line: str) -> tuple[str, str | None, str | None, str | None]:
@@ -131,11 +129,11 @@ def parse_tag_line(line: str) -> tuple[str, str | None, str | None, str | None]:
     return tag, value, trailing_modifier, comment
 
 
-def parse_stanza(lines, tag_singularity) -> dict[str, Any]:
+def parse_stanza(lines: list[str], tag_singularity: dict[str, bool]) -> dict[str, Any]:
     """
     Returns a dictionary representation of a stanza.
     """
-    stanza = {}
+    stanza: dict[str, Any] = {}
     for line in lines:
         if line.startswith("!"):
             continue
