@@ -1,9 +1,57 @@
 [build-system]
-requires = ["setuptools>=42", "wheel", "setuptools_scm[toml]>=3.4"]
+requires = ["setuptools>=61.2", "wheel", "setuptools_scm[toml]>=6.2"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools_scm]
 # including this section enables version inference
+
+[project]
+name = "obonet"
+authors = [{name = "Daniel Himmelstein", email = "daniel.himmelstein@gmail.com"}]
+license = {text = "BSD-2-Clause-Patent"}
+description = "Parse OBO formatted ontologies into networkx"
+classifiers = [
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: BSD License",
+    # "License :: OSI Approved :: BSD 2-Clause Plus Patent License (BSD-2-Clause-Patent)",
+    # not a valid classifier. see https://github.com/pypa/trove-classifiers/issues/17
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Topic :: Scientific/Engineering :: Bio-Informatics",
+    "Topic :: Scientific/Engineering :: Information Analysis",
+]
+keywords = [
+    "obo",
+    "ontology",
+    "networkx",
+    "parser",
+    "network",
+]
+requires-python = ">=3.7"
+dependencies = ["networkx"]
+dynamic = ["version"]
+
+[project.readme]
+file = "README.md"
+content-type = "text/markdown; charset=UTF-8"
+
+[project.urls]
+Homepage = "https://github.com/dhimmel/obonet"
+Source = "https://github.com/dhimmel/obonet"
+Tracker = "https://github.com/dhimmel/obonet/issues"
+
+[project.optional-dependencies]
+dev = [
+    "pre-commit",
+    "pytest",
+]
+
+[tool.setuptools]
+packages = ["obonet"]
+zip-safe = false
+include-package-data = true
+license-files = ["LICENSE.md"]
 
 [tool.ruff]
 target-version = "py37"
@@ -21,3 +69,7 @@ select = [
     "UP",  # pyupgrade
     "W",  # pycode warnings
 ]
+
+[[tool.mypy.overrides]]
+module = ["networkx.*", "setuptools.*", "pytest.*", "_pytest.*"]
+ignore_missing_imports = true
