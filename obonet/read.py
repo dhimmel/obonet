@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import itertools
 import logging
 import re
@@ -9,7 +11,9 @@ from .io import open_read_file
 logger = logging.getLogger(__name__)
 
 
-def read_obo(path_or_file, ignore_obsolete=True):
+def read_obo(
+    path_or_file, ignore_obsolete: bool = True, encoding: str | None = "utf-8"
+):
     """
     Return a networkx.MultiDiGraph of the ontology serialized by the
     specified path or file.
@@ -25,8 +29,11 @@ def read_obo(path_or_file, ignore_obsolete=True):
     ignore_obsolete : boolean
         When true (default), terms that are marked 'is_obsolete' will
         not be added to the graph.
+    encoding : str of None
+        The character set encoding to use for path_or_file when path_or_file
+        is a path/URL. Set to None for platform-dependent locale default.
     """
-    obo_file = open_read_file(path_or_file)
+    obo_file = open_read_file(path_or_file, encoding=encoding)
     typedefs, terms, instances, header = get_sections(obo_file)
     obo_file.close()
 

@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import importlib
 import io
 import logging
@@ -6,12 +8,13 @@ import re
 from urllib.request import urlopen
 
 
-def open_read_file(path):
+def open_read_file(path, encoding: str | None = None):
     """
     Return a file object from the path. Automatically detects and supports
     URLs and compression. If path is pathlike, it's converted to a string.
     If path is not a string nor pathlike, it's passed through without
-    modification.
+    modification. Use encoding to set the text character set encoding.
+    Use `encoding=None` to use the platform-dependent default locale encoding.
     """
     # Convert pathlike objects to string paths
     if hasattr(path, "__fspath__"):
@@ -29,16 +32,17 @@ def open_read_file(path):
         with urlopen(path) as response:
             content = response.read()
         if opener == io.open:
-            encoding = response.headers.get_content_charset(failobj="utf-8")
+            if not encoding:
+                encoding = response.headers.get_content_charset(failobj="utf-8")
             logging.info(f"Will decode content from {path} using {encoding} charset.")
             text = content.decode(encoding)
             return io.StringIO(text)
         else:
             compressed_bytes = io.BytesIO(content)
-            return opener(compressed_bytes, "rt")
+            return opener(compressed_bytes, "rt", encoding=encoding)
 
     # Read from file
-    return opener(path, "rt")
+    return opener(path, "rt", encoding=encoding)
 
 
 compression_to_module = {
