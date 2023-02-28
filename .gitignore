@@ -8,6 +8,7 @@ dist/
 env/
 pip-wheel-metadata/
 .mypy_cache/
+.ruff_cache/
 
 # System specific files
 
