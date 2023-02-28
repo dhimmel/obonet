@@ -3,6 +3,7 @@ from __future__ import annotations
 import itertools
 import logging
 import re
+from typing import Any
 
 import networkx
 
@@ -13,7 +14,7 @@ logger = logging.getLogger(__name__)
 
 def read_obo(
     path_or_file, ignore_obsolete: bool = True, encoding: str | None = "utf-8"
-):
+) -> networkx.MultiDiGraph[str]:
     """
     Return a networkx.MultiDiGraph of the ontology serialized by the
     specified path or file.
@@ -29,7 +30,7 @@ def read_obo(
     ignore_obsolete : boolean
         When true (default), terms that are marked 'is_obsolete' will
         not be added to the graph.
-    encoding : str of None
+    encoding : str or None
         The character set encoding to use for path_or_file when path_or_file
         is a path/URL. Set to None for platform-dependent locale default.
     """
@@ -67,7 +68,11 @@ def read_obo(
     return graph
 
 
-def get_sections(lines):
+def get_sections(
+    lines,
+) -> tuple[
+    list[dict[str, Any]], list[dict[str, Any]], list[dict[str, Any]], dict[str, Any]
+]:
     """
     Separates an obo file into stanzas and process.
     Returns (typedefs, terms, instances, header) tuples
@@ -106,7 +111,7 @@ tag_line_pattern = re.compile(
 )  # noqa: E501
 
 
-def parse_tag_line(line):
+def parse_tag_line(line: str) -> tuple[str, str | None, str | None, str | None]:
     """
     Take a line representing a single tag-value pair and parse
     the line into (tag, value, trailing_modifier, comment).
@@ -126,7 +131,7 @@ def parse_tag_line(line):
     return tag, value, trailing_modifier, comment
 
 
-def parse_stanza(lines, tag_singularity):
+def parse_stanza(lines, tag_singularity) -> dict[str, Any]:
     """
     Returns a dictionary representation of a stanza.
     """
