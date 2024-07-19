@@ -28,7 +28,7 @@ keywords = [
     "parser",
     "network",
 ]
-requires-python = ">=3.7"
+requires-python = ">=3.8"
 dependencies = ["networkx"]
 dynamic = ["version"]
 
@@ -54,7 +54,7 @@ include-package-data = true
 license-files = ["LICENSE.md"]
 
 [tool.ruff]
-target-version = "py37"
+target-version = "py38"
 ignore = [
     "E501",  # line-too-long (black should handle)
 ]
