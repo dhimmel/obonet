@@ -59,7 +59,7 @@ line-length = 88
 
 [tool.ruff.lint]
 ignore = [
-    "E501",  # line-too-long (black should handle)
+    "E501",  # line-too-long
 ]
 select = [
     "B",  # flake8-bugbear

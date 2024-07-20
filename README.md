@@ -2,7 +2,6 @@
 
 [![GitHub Actions CI Build Status](https://img.shields.io/github/actions/workflow/status/dhimmel/obonet/build.yaml?branch=main&label=actions&style=for-the-badge&logo=github&logoColor=white)](https://github.com/dhimmel/obonet/actions)  
 [![Software License](https://img.shields.io/pypi/l/obonet?style=for-the-badge&logo=FreeBSD&logoColor=white)](https://github.com/dhimmel/obonet/blob/main/LICENSE)  
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg?style=for-the-badge&logo=Python&logoColor=white)](https://github.com/psf/black)  
 [![PyPI](https://img.shields.io/pypi/v/obonet.svg?style=for-the-badge&logo=PyPI&logoColor=white)](https://pypi.org/project/obonet/)  
 
 
