@@ -8,12 +8,11 @@ __all__ = [
 
 
 def _get_version() -> str | None:
-    # https://github.com/pypa/setuptools_scm#retrieving-package-version-at-runtime
-    from pkg_resources import DistributionNotFound, get_distribution
+    from importlib.metadata import PackageNotFoundError, version
 
     try:
-        return str(get_distribution("obonet").version)
-    except DistributionNotFound:
+        return version("obonet")
+    except PackageNotFoundError:
         return None
 
 
