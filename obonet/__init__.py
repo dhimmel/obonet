@@ -11,10 +11,7 @@ __all__ = [
 
 def _get_version() -> str | None:
     try:
-        version_ = version("obonet")
-        # encountered mypy error [no-any-return] on Python 3.11
-        assert isinstance(version_, str)
-        return version_
+        return version("obonet")
     except PackageNotFoundError:
         return None
 

@@ -6,10 +6,10 @@ import logging
 import mimetypes
 import os
 import re
-from typing import Callable, TextIO, Union
+from typing import Any, Callable, TextIO, Union
 from urllib.request import urlopen
 
-PathType = Union[str, os.PathLike, TextIO]
+PathType = Union[str, os.PathLike[Any], TextIO]
 
 
 def open_read_file(path: PathType, encoding: str | None = None) -> TextIO:
