@@ -9,7 +9,7 @@ import re
 from typing import Any, Callable, TextIO, Union
 from urllib.request import urlopen
 
-PathType = Union[str, os.PathLike[Any], TextIO]
+PathType = Union[str, "os.PathLike[Any]", TextIO]
 
 
 def open_read_file(path: PathType, encoding: str | None = None) -> TextIO:
