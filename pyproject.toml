@@ -55,10 +55,12 @@ license-files = ["LICENSE.md"]
 
 [tool.ruff]
 target-version = "py38"
+line-length = 88
+
+[tool.ruff.lint]
 ignore = [
     "E501",  # line-too-long (black should handle)
 ]
-line-length = 88
 select = [
     "B",  # flake8-bugbear
     "C",  # flake8-comprehensions
@@ -86,7 +88,4 @@ module = [
 ignore_missing_imports = true
 
 [[tool.mypy.overrides]]
-module = [
-    "tests.*",
-]
 disallow_untyped_decorators = false
