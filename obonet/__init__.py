@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from importlib.metadata import PackageNotFoundError, version
+
 from .read import read_obo
 
 __all__ = [
@@ -8,10 +10,11 @@ __all__ = [
 
 
 def _get_version() -> str | None:
-    from importlib.metadata import PackageNotFoundError, version
-
     try:
-        return version("obonet")
+        version_ = version("obonet")
+        # encountered mypy error [no-any-return] on Python 3.11
+        assert isinstance(version_, str)
+        return version_
     except PackageNotFoundError:
         return None
 
