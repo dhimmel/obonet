@@ -123,6 +123,7 @@ tag_line_pattern = re.compile(
     re.VERBOSE,
 )
 
+
 def parse_tag_line(line: str) -> tuple[str, str | None, str | None, str | None]:
     """
     Take a line representing a single tag-value pair and parse
