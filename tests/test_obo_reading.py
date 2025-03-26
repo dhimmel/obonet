@@ -142,3 +142,12 @@ def test_presence_of_obsolete_nodes() -> None:
     assert "BTO:0000311" in nodes
     node = nodes["BTO:0000311"]
     assert node["is_obsolete"] == "true"
+
+
+def test_curly_braces_in_synonym() -> None:
+    """Test that we can handle curly braces inside synonyms"""
+    line = "synonym: \"10*3.{copies}/mL\" EXACT [] {http://purl.obolibrary.org/something=\"AB\"}"
+    tag, value, trailing_modifier, comment = parse_tag_line(line)
+    assert tag == "synonym"
+    assert value == "\"10*3.{copies}/mL\" EXACT []"
+    assert trailing_modifier
