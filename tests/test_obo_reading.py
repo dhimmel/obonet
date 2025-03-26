@@ -125,6 +125,15 @@ def test_parse_tag_line_backslashed_exclamation() -> None:
     assert value == r"not a real example \!"
 
 
+def test_parse_tag_line_curly_braces() -> None:
+    """Test that we can handle curly braces inside tag lines"""
+    line = 'synonym: "10*3.{copies}/mL" EXACT [] {http://purl.obolibrary.org/something="AB"}'
+    tag, value, trailing_modifier, comment = parse_tag_line(line)
+    assert tag == "synonym"
+    assert value == '"10*3.{copies}/mL" EXACT []'
+    assert trailing_modifier
+
+
 def test_ignore_obsolete_nodes() -> None:
     """Quick verification that the change doesn't break anything"""
     path = os.path.join(directory, "data", "brenda-subset.obo")

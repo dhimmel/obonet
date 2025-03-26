@@ -105,7 +105,22 @@ def get_sections(
 
 # regular expression to parse key-value pair lines.
 tag_line_pattern = re.compile(
-    r"^(?P<tag>.+?): *(?P<value>.+?) ?(?P<trailing_modifier>(?<!\\)\{.*?(?<!\\)\})? ?(?P<comment>(?<!\\)!.*?)?$"
+    r"""^
+    (?P<tag>.+?):\s*             # tag and separator
+    (?P<value>.*?)               # value: match anything (non-greedy)
+    (?:\s                        # optional trailing modifier
+        (?P<trailing_modifier>
+            (?<!\\)\{[^{}]*\}    # match unescaped {...}
+        )
+    )?
+    (?:\s
+        (?P<comment>            # optional comment
+            (?<!\\)![^\n]*      # match unescaped ! followed by any characters
+        )
+    )?
+    \s*$                        # optional trailing whitespace
+    """,
+    re.VERBOSE,
 )
 
 
