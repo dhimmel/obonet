@@ -1,0 +1,15 @@
+Dear obonet maintainers,
+
+I hope this message finds you well. I'm a student working on an assignment related to code review and improvement. As part of this assignment, I've made some minor enhancements to the obonet codebase that I believe could be beneficial:
+
+1. Added missing docstrings to some functions
+2. Improved PEP 8 compliance by splitting some long lines
+3. Renamed a few variables to follow snake_case convention
+4. Added type hints to function signatures
+
+These changes aim to improve code readability and maintainability without altering the functionality. I'd be happy to discuss any questions or concerns you might have about these changes.
+
+Thank you for maintaining this valuable project, and for considering my contribution.
+
+Best regards,
+Syed Muhammad Murtaza Ali Zaidi
