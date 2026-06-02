@@ -149,19 +149,22 @@ def parse_stanza(lines: list[str], tag_singularity: dict[str, bool]) -> dict[str
     Returns a dictionary representation of a stanza.
     """
     stanza: dict[str, Any] = {}
-    modifiers: dict[str, Any] = {}
+    trailing_modifiers: dict[str, Any] = {}
+    comments: dict[str, Any] = {}
     for line in lines:
         if line.startswith("!"):
             continue
         tag, value, trailing_modifier, comment = parse_tag_line(line)
-        mod = {"trailing_modifier": trailing_modifier, "comment": comment}
         if tag_singularity.get(tag, False):
             stanza[tag] = value
-            modifiers[tag] = mod
+            trailing_modifiers[tag] = trailing_modifier
+            comments[tag] = comment
         else:
             stanza.setdefault(tag, []).append(value)
-            modifiers.setdefault(tag, []).append(mod)
-    stanza["_tag_modifiers"] = modifiers
+            trailing_modifiers.setdefault(tag, []).append(trailing_modifier)
+            comments.setdefault(tag, []).append(comment)
+    stanza["_trailing_modifiers"] = trailing_modifiers
+    stanza["_comments"] = comments
     return stanza
 
 
