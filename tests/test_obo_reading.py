@@ -134,17 +134,34 @@ def test_parse_tag_line_curly_braces() -> None:
     assert trailing_modifier
 
 
-def test_trailing_modifiers() -> None:
-    """The _tag_modifiers should be present and line up with values."""
+def test_trailing_modifiers_and_comments() -> None:
+    """The _trailing_modifiers and _comments should line up with values,
+    covering all four combinations of modifier/comment being present."""
     lines = [
-        'xref: DOID:14250 {source="MONDO:equivalentTo"}',
-        "xref: GARD:0010247",
+        'xref: DOID:14250 {source="MONDO:equivalentTo"} ! Down syndrome',
+        'xref: GARD:0010247 {source="MONDO:equivalentTo"}',
+        "xref: MESH:D004314 ! Down Syndrome",
+        "xref: NCIT:C2993",
     ]
     stanza = parse_stanza(lines, term_tag_singularity)
-    assert stanza["xref"] == ["DOID:14250", "GARD:0010247"]
-    modifiers = stanza["_tag_modifiers"]["xref"]
-    assert modifiers[0]["trailing_modifier"] == 'source="MONDO:equivalentTo"'
-    assert modifiers[1]["trailing_modifier"] is None
+    assert stanza["xref"] == [
+        "DOID:14250",
+        "GARD:0010247",
+        "MESH:D004314",
+        "NCIT:C2993",
+    ]
+    assert stanza["_trailing_modifiers"]["xref"] == [
+        'source="MONDO:equivalentTo"',
+        'source="MONDO:equivalentTo"',
+        None,
+        None,
+    ]
+    assert stanza["_comments"]["xref"] == [
+        "Down syndrome",
+        None,
+        "Down Syndrome",
+        None,
+    ]
 
 
 def test_ignore_obsolete_nodes() -> None:
