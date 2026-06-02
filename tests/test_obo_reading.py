@@ -4,7 +4,7 @@ import pathlib
 import pytest
 
 import obonet
-from obonet.read import parse_tag_line
+from obonet.read import parse_stanza, parse_tag_line, term_tag_singularity
 
 directory = os.path.dirname(os.path.abspath(__file__))
 
@@ -132,6 +132,19 @@ def test_parse_tag_line_curly_braces() -> None:
     assert tag == "synonym"
     assert value == '"10*3.{copies}/mL" EXACT []'
     assert trailing_modifier
+
+
+def test_trailing_modifiers() -> None:
+    """The _tag_modifiers should be present and line up with values."""
+    lines = [
+        'xref: DOID:14250 {source="MONDO:equivalentTo"}',
+        "xref: GARD:0010247",
+    ]
+    stanza = parse_stanza(lines, term_tag_singularity)
+    assert stanza["xref"] == ["DOID:14250", "GARD:0010247"]
+    modifiers = stanza["_tag_modifiers"]["xref"]
+    assert modifiers[0]["trailing_modifier"] == 'source="MONDO:equivalentTo"'
+    assert modifiers[1]["trailing_modifier"] is None
 
 
 def test_ignore_obsolete_nodes() -> None:
