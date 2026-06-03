@@ -110,23 +110,17 @@ Currently, only reading OBO files is supported.
 Some development commands:
 
 ```bash
-# create virtual environment
-python3 -m venv ./env
-
-# activate virtual environment
-source env/bin/activate
-
-# editable installation for development
-pip install --editable ".[dev]"
+# install dependencies
+uv sync --extra dev
 
 # install pre-commit hooks
-pre-commit install
+uv run pre-commit install
 
 # run all pre-commit checks
-pre-commit run --all
+uv run pre-commit run --all
 
 # run tests
-pytest
+uv run pytest
 
 # generate changelog for release notes
 git fetch --tags origin main
