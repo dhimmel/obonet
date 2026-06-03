@@ -70,6 +70,12 @@ graph.nodes['TAXRANK:0000060']['_clauses']['is_a'][0]
 
 For a more detailed tutorial, see the [**Gene Ontology example notebook**](https://github.com/dhimmel/obonet/blob/main/examples/go-obonet.ipynb).
 
+OBO files can also be converted to NetworkX node-link JSON from the command line:
+
+```shell
+uvx obonet tests/data/taxrank.obo --include-clauses --output=taxrank.json
+```
+
 ## Comparison
 
 This package specializes in reading OBO files into a `newtorkx.MultiDiGraph`.

@@ -41,6 +41,9 @@ Homepage = "https://github.com/dhimmel/obonet"
 Source = "https://github.com/dhimmel/obonet"
 Tracker = "https://github.com/dhimmel/obonet/issues"
 
+[project.scripts]
+obonet = "obonet.cli:main"
+
 [project.optional-dependencies]
 dev = [
     "mypy==2.1.0; python_version >= '3.10'",
