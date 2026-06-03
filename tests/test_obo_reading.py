@@ -1,6 +1,5 @@
 import os
 import pathlib
-from typing import Any
 
 import pytest
 
@@ -8,14 +7,6 @@ import obonet
 from obonet.read import parse_stanza, parse_tag_line, term_tag_singularity
 
 directory = os.path.dirname(os.path.abspath(__file__))
-
-
-def get_node(graph: Any, node: str) -> Any:
-    if hasattr(graph, "node"):
-        # NetworkX 1.x
-        return graph.node[node]
-    # NetworkX 2.x
-    return graph.nodes[node]
 
 
 def test_read_taxrank_file() -> None:
@@ -26,8 +17,8 @@ def test_read_taxrank_file() -> None:
     with open(path) as read_file:
         taxrank = obonet.read_obo(read_file)
     assert len(taxrank) == 61
-    assert get_node(taxrank, "TAXRANK:0000001")["name"] == "phylum"
-    assert "NCBITaxon:kingdom" in get_node(taxrank, "TAXRANK:0000017")["xref"]
+    assert taxrank.nodes["TAXRANK:0000001"]["name"] == "phylum"
+    assert "NCBITaxon:kingdom" in taxrank.nodes["TAXRANK:0000017"]["xref"]
 
 
 @pytest.mark.parametrize("extension", ["", ".gz", ".bz2", ".xz"])
@@ -37,9 +28,11 @@ def test_read_taxrank_path(extension: str, pathlike: bool) -> None:
     Test reading the taxrank ontology OBO file from paths. Includes reading
     compressed paths.
     """
-    path = os.path.join(directory, "data", "taxrank.obo" + extension)
+    path: str | pathlib.Path = os.path.join(
+        directory, "data", "taxrank.obo" + extension
+    )
     if pathlike:
-        path = pathlib.Path(path)  # type: ignore [assignment]
+        path = pathlib.Path(path)
     taxrank = obonet.read_obo(path)
     assert len(taxrank) == 61
 
@@ -191,7 +184,7 @@ def test_read_obo_with_clauses() -> None:
     taxrank = obonet.read_obo(path)
     assert "_clauses" not in taxrank.graph
     assert "_clauses" not in taxrank.graph["typedefs"][0]
-    node = get_node(taxrank, "TAXRANK:0000001")
+    node = taxrank.nodes["TAXRANK:0000001"]
     assert "_clauses" not in node
 
     taxrank = obonet.read_obo(path, include_clauses=True)
@@ -211,7 +204,7 @@ def test_read_obo_with_clauses() -> None:
             "comment": None,
         }
     ]
-    node = get_node(taxrank, "TAXRANK:0000001")
+    node = taxrank.nodes["TAXRANK:0000001"]
     clauses = node["_clauses"]
     assert clauses["id"] == [
         {
@@ -241,7 +234,6 @@ def test_ignore_obsolete_nodes() -> None:
 
 def test_presence_of_obsolete_nodes() -> None:
     """Test that we did, indeed, capture those obsolete entries"""
-    pytest.importorskip("networkx", minversion="2.0")
     path = os.path.join(directory, "data", "brenda-subset.obo")
     brenda = obonet.read_obo(path, ignore_obsolete=False)
     nodes = brenda.nodes(data=True)

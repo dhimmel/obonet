@@ -27,7 +27,7 @@ keywords = [
     "network",
 ]
 requires-python = ">=3.10"
-dependencies = ["networkx"]
+dependencies = ["networkx>=2"]
 dynamic = ["version"]
 
 [project.readme]
