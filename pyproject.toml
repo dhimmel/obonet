@@ -43,6 +43,7 @@ Tracker = "https://github.com/dhimmel/obonet/issues"
 
 [project.optional-dependencies]
 dev = [
+    "mypy==2.1.0; python_version >= '3.10'",
     "prek",
     "pytest",
 ]
@@ -75,17 +76,20 @@ select = [
 [tool.mypy]
 python_version = "3.8"
 strict = true
+disallow_untyped_decorators = false
 
 
 [[tool.mypy.overrides]]
 module = [
+    "networkx",
     "networkx.*",
+    "setuptools",
     "setuptools.*",
+    "pkg_resources",
     "pkg_resources.*",
+    "pytest",
     "pytest.*",
+    "_pytest",
     "_pytest.*",
 ]
 ignore_missing_imports = true
-
-[[tool.mypy.overrides]]
-disallow_untyped_decorators = false
