@@ -3,7 +3,8 @@ from __future__ import annotations
 import itertools
 import logging
 import re
-from typing import Any, Iterator, NamedTuple
+from dataclasses import asdict, dataclass
+from typing import Any, Iterator
 
 import networkx
 
@@ -13,7 +14,10 @@ logger = logging.getLogger(__name__)
 
 
 def read_obo(
-    path_or_file: PathType, ignore_obsolete: bool = True, encoding: str | None = "utf-8"
+    path_or_file: PathType,
+    ignore_obsolete: bool = True,
+    encoding: str | None = "utf-8",
+    include_clauses: bool = False,
 ) -> networkx.MultiDiGraph[str]:
     """
     Return a networkx.MultiDiGraph of the ontology serialized by the
@@ -33,9 +37,13 @@ def read_obo(
     encoding : str or None
         The character set encoding to use for path_or_file when path_or_file
         is a path/URL. Set to None for platform-dependent locale default.
+    include_clauses : boolean
+        When true, include full parsed OBO clauses under the "_clauses" key.
     """
     with open_read_file(path_or_file, encoding=encoding) as obo_file:
-        typedefs, terms, instances, header = get_sections(obo_file)
+        typedefs, terms, instances, header = get_sections(
+            obo_file, include_clauses=include_clauses
+        )
 
     if "ontology" in header:
         header["name"] = header.get("ontology")
@@ -69,6 +77,7 @@ def read_obo(
 
 def get_sections(
     lines: Iterator[str],
+    include_clauses: bool = False,
 ) -> tuple[
     list[dict[str, Any]], list[dict[str, Any]], list[dict[str, Any]], dict[str, Any]
 ]:
@@ -86,17 +95,25 @@ def get_sections(
             continue
         stanza_type_line, *stanza_lines = stanza_lines_iter
         if stanza_type_line.startswith("[Typedef]"):
-            typedef = parse_stanza(stanza_lines, typedef_tag_singularity)
+            typedef = parse_stanza(
+                stanza_lines, typedef_tag_singularity, include_clauses=include_clauses
+            )
             typedefs.append(typedef)
         elif stanza_type_line.startswith("[Term]"):
-            term = parse_stanza(stanza_lines, term_tag_singularity)
+            term = parse_stanza(
+                stanza_lines, term_tag_singularity, include_clauses=include_clauses
+            )
             terms.append(term)
         elif stanza_type_line.startswith("[Instance]"):
-            instance = parse_stanza(stanza_lines, instance_tag_singularity)
+            instance = parse_stanza(
+                stanza_lines, instance_tag_singularity, include_clauses=include_clauses
+            )
             instances.append(instance)
         else:
             stanza_lines = [stanza_type_line] + stanza_lines
-            header = parse_stanza(stanza_lines, header_tag_singularity)
+            header = parse_stanza(
+                stanza_lines, header_tag_singularity, include_clauses=include_clauses
+            )
     if header is None:
         logger.warning("got no header information")
         header = {}
@@ -124,7 +141,8 @@ tag_line_pattern = re.compile(
 )
 
 
-class TagLine(NamedTuple):
+@dataclass(frozen=True)
+class TagLine:
     """
     Parsed components of a single OBO tag line.
     trailing_modifier and comment are None when absent from the line.
@@ -156,27 +174,28 @@ def parse_tag_line(line: str) -> TagLine:
     return TagLine(tag=tag, value=value, trailing_modifier=trailing_modifier, comment=comment)
 
 
-def parse_stanza(lines: list[str], tag_singularity: dict[str, bool]) -> dict[str, Any]:
+def parse_stanza(
+    lines: list[str],
+    tag_singularity: dict[str, bool],
+    include_clauses: bool = False,
+) -> dict[str, Any]:
     """
     Returns a dictionary representation of a stanza.
     """
     stanza: dict[str, Any] = {}
-    trailing_modifiers: dict[str, Any] = {}
-    comments: dict[str, Any] = {}
+    clauses: list[dict[str, str | None]] = []
     for line in lines:
         if line.startswith("!"):
             continue
-        tag, value, trailing_modifier, comment = parse_tag_line(line)
-        if tag_singularity.get(tag, False):
-            stanza[tag] = value
-            trailing_modifiers[tag] = trailing_modifier
-            comments[tag] = comment
+        tag_line = parse_tag_line(line)
+        if include_clauses:
+            clauses.append(asdict(tag_line))
+        if tag_singularity.get(tag_line.tag, False):
+            stanza[tag_line.tag] = tag_line.value
         else:
-            stanza.setdefault(tag, []).append(value)
-            trailing_modifiers.setdefault(tag, []).append(trailing_modifier)
-            comments.setdefault(tag, []).append(comment)
-    stanza["_trailing_modifiers"] = trailing_modifiers
-    stanza["_comments"] = comments
+            stanza.setdefault(tag_line.tag, []).append(tag_line.value)
+    if include_clauses:
+        stanza["_clauses"] = clauses
     return stanza
 
 
