@@ -187,10 +187,24 @@ def test_parse_stanza_with_clauses() -> None:
 def test_read_obo_with_clauses() -> None:
     path = os.path.join(directory, "data", "taxrank.obo")
     taxrank = obonet.read_obo(path)
+    assert "_clauses" not in taxrank.graph
+    assert "_clauses" not in taxrank.graph["typedefs"][0]
     node = get_node(taxrank, "TAXRANK:0000001")
     assert "_clauses" not in node
 
     taxrank = obonet.read_obo(path, include_clauses=True)
+    assert taxrank.graph["_clauses"][0] == {
+        "tag": "format-version",
+        "value": "1.2",
+        "trailing_modifier": None,
+        "comment": None,
+    }
+    assert taxrank.graph["typedefs"][0]["_clauses"][0] == {
+        "tag": "id",
+        "value": "TAXRANK:1000000",
+        "trailing_modifier": None,
+        "comment": None,
+    }
     node = get_node(taxrank, "TAXRANK:0000001")
     clauses = node["_clauses"]
     assert clauses[0] == {
