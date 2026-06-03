@@ -7,10 +7,10 @@ import mimetypes
 import os
 import re
 from collections.abc import Callable
-from typing import Any, TextIO, Union
+from typing import TextIO
 from urllib.request import Request, urlopen
 
-PathType = Union[str, "os.PathLike[Any]", TextIO]
+PathType = str | os.PathLike[str] | TextIO
 
 # The GO CDN rejects the default Python urllib user agent with a 403.
 # Send a custom user agent to avoid being blocked.
@@ -27,7 +27,7 @@ def open_read_file(path: PathType, encoding: str | None = None) -> TextIO:
     Use `encoding=None` to use the platform-dependent default locale encoding.
     """
     # Convert pathlike objects to string paths
-    if hasattr(path, "__fspath__"):
+    if isinstance(path, os.PathLike):
         path = os.fspath(path)
 
     if not isinstance(path, str):

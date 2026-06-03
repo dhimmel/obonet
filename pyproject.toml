@@ -83,8 +83,6 @@ disallow_untyped_decorators = false
 module = [
     "networkx",
     "networkx.*",
-    "pkg_resources",
-    "pkg_resources.*",
     "pytest",
     "pytest.*",
     "_pytest",

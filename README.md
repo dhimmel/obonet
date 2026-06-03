@@ -14,10 +14,10 @@ Read OBO-formatted ontologies in Python.
 + modern
 + simple and tested
 + lightweight
-+ [`networkx`](https://networkx.readthedocs.io/en/stable/overview.html) leveraging
++ [`networkx`](https://networkx.org/en/) leveraging
 
 This Python package loads OBO serialized ontologies into networks.
-The function `obonet.read_obo()` takes an `.obo` file and returns a [`networkx.MultiDiGraph`](https://networkx.github.io/documentation/stable/reference/classes/multigraph.html) representation of the ontology.
+The function `obonet.read_obo()` takes an `.obo` file and returns a [`networkx.MultiDiGraph`](https://networkx.org/documentation/stable/reference/classes/multigraph.html) representation of the ontology.
 The parser was designed for the OBO specification version [1.2](https://owlcollab.github.io/oboformat/doc/GO.format.obo-1_2.html) & [1.4](https://owlcollab.github.io/oboformat/doc/GO.format.obo-1_4.html).
 
 ## Usage
