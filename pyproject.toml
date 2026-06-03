@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=61.2", "wheel", "setuptools_scm[toml]>=6.2"]
+requires = ["setuptools>=77.0", "wheel", "setuptools_scm[toml]>=6.2"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools_scm]
@@ -8,13 +8,11 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "obonet"
 authors = [{name = "Daniel Himmelstein", email = "daniel.himmelstein@gmail.com"}]
-license = {text = "BSD-2-Clause-Patent"}
+license = "BSD-2-Clause-Patent"
+license-files = ["LICENSE.md"]
 description = "Parse OBO formatted ontologies into networkx"
 classifiers = [
     "Intended Audience :: Science/Research",
-    "License :: OSI Approved :: BSD License",
-    # "License :: OSI Approved :: BSD 2-Clause Plus Patent License (BSD-2-Clause-Patent)",
-    # not a valid classifier. see https://github.com/pypa/trove-classifiers/issues/17
     "Operating System :: OS Independent",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
@@ -55,7 +53,6 @@ dev = [
 packages = ["obonet"]
 zip-safe = false
 include-package-data = true
-license-files = ["LICENSE.md"]
 
 [tool.ruff]
 target-version = "py38"
