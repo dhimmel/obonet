@@ -7,9 +7,14 @@ import mimetypes
 import os
 import re
 from typing import Any, Callable, TextIO, Union
-from urllib.request import urlopen
+from urllib.request import Request, urlopen
 
 PathType = Union[str, "os.PathLike[Any]", TextIO]
+
+# The GO CDN rejects the default Python urllib user agent with a 403.
+# Send a custom user agent to avoid being blocked.
+# https://github.com/dhimmel/obonet/issues/34
+USER_AGENT = "Mozilla/5.0 (compatible; obonet)"
 
 
 def open_read_file(path: PathType, encoding: str | None = None) -> TextIO:
@@ -33,7 +38,8 @@ def open_read_file(path: PathType, encoding: str | None = None) -> TextIO:
 
     # Read from URL
     if re.match("^(http|ftp)s?://", path):
-        with urlopen(path) as response:
+        request = Request(path, headers={"User-Agent": USER_AGENT})
+        with urlopen(request) as response:
             content = response.read()
         if opener == io.open:
             if not encoding:
