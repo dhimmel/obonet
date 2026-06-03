@@ -55,6 +55,18 @@ id_to_name['TAXRANK:0000006']  # TAXRANK:0000006 is species
 # Find all superterms of species. Note that networkx.descendants gets
 # superterms, while networkx.ancestors returns subterms.
 networkx.descendants(graph, 'TAXRANK:0000006')
+
+# Include parsed OBO clauses to preserve comments and trailing modifiers
+graph = obonet.read_obo(url, include_clauses=True)
+clauses = graph.nodes['TAXRANK:0000060']['_clauses']
+[clause for clause in clauses if clause['tag'] == 'is_a'][0]
+# output preserves the OBO trailing comment after "!":
+# {
+#     'tag': 'is_a',
+#     'value': 'TAXRANK:0000000',
+#     'trailing_modifier': None,
+#     'comment': 'taxonomic_rank',
+# }
 ```
 
 For a more detailed tutorial, see the [**Gene Ontology example notebook**](https://github.com/dhimmel/obonet/blob/main/examples/go-obonet.ipynb).
