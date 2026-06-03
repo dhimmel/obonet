@@ -16,12 +16,12 @@ jobs:
         - macOS-latest
         python-version:
         - "3.8"
-        - "3.13"
+        - "3.14"
         networkx-version:
         - "1.*"
         - "2.*"
         exclude:
-        - python-version: "3.13"
+        - python-version: "3.14"
           networkx-version: "1.*"
     steps:
     - uses: actions/checkout@v4
@@ -36,7 +36,7 @@ jobs:
         uv sync --extra dev
         uv pip install networkx==${{ matrix.networkx-version }}
     - name: Run prek
-      if: matrix.python-version == '3.13'
+      if: matrix.python-version == '3.14'
       run: uv run --no-sync prek run --all-files --show-diff-on-failure --color=always
     - name: Test with pytest
       run: uv run --no-sync pytest --color=yes
