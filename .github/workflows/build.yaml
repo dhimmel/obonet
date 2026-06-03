@@ -17,7 +17,7 @@ jobs:
         - windows-latest
         - macOS-latest
         python-version:
-        - "3.8"
+        - "3.10"
         - "3.14"
         networkx-version:
         - "1.*"

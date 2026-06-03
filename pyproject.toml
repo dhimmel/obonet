@@ -26,7 +26,7 @@ keywords = [
     "parser",
     "network",
 ]
-requires-python = ">=3.8"
+requires-python = ">=3.10"
 dependencies = ["networkx"]
 dynamic = ["version"]
 
@@ -44,7 +44,7 @@ obonet = "obonet.cli:main"
 
 [project.optional-dependencies]
 dev = [
-    "mypy==2.1.0; python_version >= '3.10'",
+    "mypy==2.1.0",
     "prek",
     "pytest",
 ]
@@ -55,7 +55,7 @@ zip-safe = false
 include-package-data = true
 
 [tool.ruff]
-target-version = "py38"
+target-version = "py310"
 line-length = 88
 
 [tool.ruff.lint]
@@ -74,7 +74,7 @@ select = [
 ]
 
 [tool.mypy]
-python_version = "3.8"
+python_version = "3.10"
 strict = true
 disallow_untyped_decorators = false
 

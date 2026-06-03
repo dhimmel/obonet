@@ -6,7 +6,8 @@ import logging
 import mimetypes
 import os
 import re
-from typing import Any, Callable, TextIO, Union
+from collections.abc import Callable
+from typing import Any, TextIO, Union
 from urllib.request import Request, urlopen
 
 PathType = Union[str, "os.PathLike[Any]", TextIO]
