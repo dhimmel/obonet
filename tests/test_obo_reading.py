@@ -75,93 +75,126 @@ def test_read_obo(ontology: str) -> None:
 
 def test_parse_tag_line_newline_agnostic() -> None:
     for line in ["saved-by: vw", "saved-by: vw\n"]:
-        tag, value, trailing_modifier, comment = parse_tag_line(line)
-        assert tag == "saved-by"
-        assert value == "vw"
-        assert trailing_modifier is None
-        assert comment is None
+        tag_line = parse_tag_line(line)
+        assert tag_line.tag == "saved-by"
+        assert tag_line.value == "vw"
+        assert tag_line.trailing_modifier is None
+        assert tag_line.comment is None
 
 
 def test_parse_tag_line_with_tag_and_value() -> None:
     line = 'synonym: "ovarian ring canal" NARROW []\n'
-    tag, value, trailing_modifier, comment = parse_tag_line(line)
-    assert tag == "synonym"
-    assert value == '"ovarian ring canal" NARROW []'
-    assert trailing_modifier is None
-    assert comment is None
+    tag_line = parse_tag_line(line)
+    assert tag_line.tag == "synonym"
+    assert tag_line.value == '"ovarian ring canal" NARROW []'
+    assert tag_line.trailing_modifier is None
+    assert tag_line.comment is None
 
 
 def test_parse_tag_line_with_tag_value_and_comment() -> None:
     line = "is_a: GO:0005102 ! receptor binding\n"
-    tag, value, trailing_modifier, comment = parse_tag_line(line)
-    assert tag == "is_a"
-    assert value == "GO:0005102"
-    assert trailing_modifier is None
-    assert comment == "receptor binding"
+    tag_line = parse_tag_line(line)
+    assert tag_line.tag == "is_a"
+    assert tag_line.value == "GO:0005102"
+    assert tag_line.trailing_modifier is None
+    assert tag_line.comment == "receptor binding"
 
 
 def test_parse_tag_line_with_tag_value_and_trailing_modifier() -> None:
     line = 'xref: UMLS:C0226369 {source="ncithesaurus:Obturator_Artery"}\n'
-    tag, value, trailing_modifier, comment = parse_tag_line(line)
-    assert tag == "xref"
-    assert value == "UMLS:C0226369"
-    assert trailing_modifier == 'source="ncithesaurus:Obturator_Artery"'
-    assert comment is None
+    tag_line = parse_tag_line(line)
+    assert tag_line.tag == "xref"
+    assert tag_line.value == "UMLS:C0226369"
+    assert tag_line.trailing_modifier == 'source="ncithesaurus:Obturator_Artery"'
+    assert tag_line.comment is None
 
 
 def test_parse_tag_line_with_tag_value_trailing_modifier_and_comment() -> None:
     line = 'xref: UMLS:C0022131 {source="ncithesaurus:Islet_of_Langerhans"} ! Islets of Langerhans\n'  # noqa: E501
-    tag, value, trailing_modifier, comment = parse_tag_line(line)
-    assert tag == "xref"
-    assert value == "UMLS:C0022131"
-    assert trailing_modifier == 'source="ncithesaurus:Islet_of_Langerhans"'
-    assert comment == "Islets of Langerhans"
+    tag_line = parse_tag_line(line)
+    assert tag_line.tag == "xref"
+    assert tag_line.value == "UMLS:C0022131"
+    assert tag_line.trailing_modifier == 'source="ncithesaurus:Islet_of_Langerhans"'
+    assert tag_line.comment == "Islets of Langerhans"
 
 
 def test_parse_tag_line_backslashed_exclamation() -> None:
     line = "synonym: not a real example \\!\n"
-    tag, value, trailing_modifier, comment = parse_tag_line(line)
-    assert tag == "synonym"
-    assert value == r"not a real example \!"
+    tag_line = parse_tag_line(line)
+    assert tag_line.tag == "synonym"
+    assert tag_line.value == r"not a real example \!"
 
 
 def test_parse_tag_line_curly_braces() -> None:
     """Test that we can handle curly braces inside tag lines"""
     line = 'synonym: "10*3.{copies}/mL" EXACT [] {http://purl.obolibrary.org/something="AB"}'
-    tag, value, trailing_modifier, comment = parse_tag_line(line)
-    assert tag == "synonym"
-    assert value == '"10*3.{copies}/mL" EXACT []'
-    assert trailing_modifier
+    tag_line = parse_tag_line(line)
+    assert tag_line.tag == "synonym"
+    assert tag_line.value == '"10*3.{copies}/mL" EXACT []'
+    assert tag_line.trailing_modifier
 
 
-def test_trailing_modifiers_and_comments() -> None:
-    """The _trailing_modifiers and _comments should line up with values,
-    covering all four combinations of modifier/comment being present."""
+def test_parse_stanza_with_clauses() -> None:
     lines = [
         'xref: DOID:14250 {source="MONDO:equivalentTo"} ! Down syndrome',
         'xref: GARD:0010247 {source="MONDO:equivalentTo"}',
         "xref: MESH:D004314 ! Down Syndrome",
         "xref: NCIT:C2993",
     ]
-    stanza = parse_stanza(lines, term_tag_singularity)
+    stanza = parse_stanza(lines, term_tag_singularity, include_clauses=True)
     assert stanza["xref"] == [
         "DOID:14250",
         "GARD:0010247",
         "MESH:D004314",
         "NCIT:C2993",
     ]
-    assert stanza["_trailing_modifiers"]["xref"] == [
-        'source="MONDO:equivalentTo"',
-        'source="MONDO:equivalentTo"',
-        None,
-        None,
+    assert stanza["_clauses"] == [
+        {
+            "tag": "xref",
+            "value": "DOID:14250",
+            "trailing_modifier": 'source="MONDO:equivalentTo"',
+            "comment": "Down syndrome",
+        },
+        {
+            "tag": "xref",
+            "value": "GARD:0010247",
+            "trailing_modifier": 'source="MONDO:equivalentTo"',
+            "comment": None,
+        },
+        {
+            "tag": "xref",
+            "value": "MESH:D004314",
+            "trailing_modifier": None,
+            "comment": "Down Syndrome",
+        },
+        {
+            "tag": "xref",
+            "value": "NCIT:C2993",
+            "trailing_modifier": None,
+            "comment": None,
+        },
     ]
-    assert stanza["_comments"]["xref"] == [
-        "Down syndrome",
-        None,
-        "Down Syndrome",
-        None,
-    ]
+
+
+def test_read_obo_with_clauses() -> None:
+    path = os.path.join(directory, "data", "taxrank.obo")
+    taxrank = obonet.read_obo(path)
+    assert "_clauses" not in taxrank.nodes["TAXRANK:0000001"]
+
+    taxrank = obonet.read_obo(path, include_clauses=True)
+    clauses = taxrank.nodes["TAXRANK:0000001"]["_clauses"]
+    assert clauses[0] == {
+        "tag": "id",
+        "value": "TAXRANK:0000001",
+        "trailing_modifier": None,
+        "comment": None,
+    }
+    assert clauses[1] == {
+        "tag": "name",
+        "value": "phylum",
+        "trailing_modifier": None,
+        "comment": None,
+    }
 
 
 def test_ignore_obsolete_nodes() -> None:
