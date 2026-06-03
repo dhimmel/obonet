@@ -58,8 +58,7 @@ networkx.descendants(graph, 'TAXRANK:0000006')
 
 # Include parsed OBO clauses to preserve comments and trailing modifiers
 graph = obonet.read_obo(url, include_clauses=True)
-clauses = graph.nodes['TAXRANK:0000060']['_clauses']
-[clause for clause in clauses if clause['tag'] == 'is_a'][0]
+graph.nodes['TAXRANK:0000060']['_clauses']['is_a'][0]
 # output preserves the OBO trailing comment after "!":
 # {
 #     'tag': 'is_a',

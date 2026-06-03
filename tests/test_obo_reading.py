@@ -156,32 +156,34 @@ def test_parse_stanza_with_clauses() -> None:
         "MESH:D004314",
         "NCIT:C2993",
     ]
-    assert stanza["_clauses"] == [
-        {
-            "tag": "xref",
-            "value": "DOID:14250",
-            "trailing_modifier": 'source="MONDO:equivalentTo"',
-            "comment": "Down syndrome",
-        },
-        {
-            "tag": "xref",
-            "value": "GARD:0010247",
-            "trailing_modifier": 'source="MONDO:equivalentTo"',
-            "comment": None,
-        },
-        {
-            "tag": "xref",
-            "value": "MESH:D004314",
-            "trailing_modifier": None,
-            "comment": "Down Syndrome",
-        },
-        {
-            "tag": "xref",
-            "value": "NCIT:C2993",
-            "trailing_modifier": None,
-            "comment": None,
-        },
-    ]
+    assert stanza["_clauses"] == {
+        "xref": [
+            {
+                "tag": "xref",
+                "value": "DOID:14250",
+                "trailing_modifier": 'source="MONDO:equivalentTo"',
+                "comment": "Down syndrome",
+            },
+            {
+                "tag": "xref",
+                "value": "GARD:0010247",
+                "trailing_modifier": 'source="MONDO:equivalentTo"',
+                "comment": None,
+            },
+            {
+                "tag": "xref",
+                "value": "MESH:D004314",
+                "trailing_modifier": None,
+                "comment": "Down Syndrome",
+            },
+            {
+                "tag": "xref",
+                "value": "NCIT:C2993",
+                "trailing_modifier": None,
+                "comment": None,
+            },
+        ]
+    }
 
 
 def test_read_obo_with_clauses() -> None:
@@ -193,32 +195,40 @@ def test_read_obo_with_clauses() -> None:
     assert "_clauses" not in node
 
     taxrank = obonet.read_obo(path, include_clauses=True)
-    assert taxrank.graph["_clauses"][0] == {
-        "tag": "format-version",
-        "value": "1.2",
-        "trailing_modifier": None,
-        "comment": None,
-    }
-    assert taxrank.graph["typedefs"][0]["_clauses"][0] == {
-        "tag": "id",
-        "value": "TAXRANK:1000000",
-        "trailing_modifier": None,
-        "comment": None,
-    }
+    assert taxrank.graph["_clauses"]["format-version"] == [
+        {
+            "tag": "format-version",
+            "value": "1.2",
+            "trailing_modifier": None,
+            "comment": None,
+        }
+    ]
+    assert taxrank.graph["typedefs"][0]["_clauses"]["id"] == [
+        {
+            "tag": "id",
+            "value": "TAXRANK:1000000",
+            "trailing_modifier": None,
+            "comment": None,
+        }
+    ]
     node = get_node(taxrank, "TAXRANK:0000001")
     clauses = node["_clauses"]
-    assert clauses[0] == {
-        "tag": "id",
-        "value": "TAXRANK:0000001",
-        "trailing_modifier": None,
-        "comment": None,
-    }
-    assert clauses[1] == {
-        "tag": "name",
-        "value": "phylum",
-        "trailing_modifier": None,
-        "comment": None,
-    }
+    assert clauses["id"] == [
+        {
+            "tag": "id",
+            "value": "TAXRANK:0000001",
+            "trailing_modifier": None,
+            "comment": None,
+        }
+    ]
+    assert clauses["name"] == [
+        {
+            "tag": "name",
+            "value": "phylum",
+            "trailing_modifier": None,
+            "comment": None,
+        }
+    ]
 
 
 def test_ignore_obsolete_nodes() -> None:

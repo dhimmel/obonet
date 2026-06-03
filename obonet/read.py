@@ -188,13 +188,13 @@ def parse_stanza(
     Returns a dictionary representation of a stanza.
     """
     stanza: dict[str, Any] = {}
-    clauses: list[dict[str, str | None]] = []
+    clauses: dict[str, list[dict[str, str | None]]] = {}
     for line in lines:
         if line.startswith("!"):
             continue
         tag_line = parse_tag_line(line)
         if include_clauses:
-            clauses.append(asdict(tag_line))
+            clauses.setdefault(tag_line.tag, []).append(asdict(tag_line))
         if tag_singularity.get(tag_line.tag, False):
             stanza[tag_line.tag] = tag_line.value
         else:
