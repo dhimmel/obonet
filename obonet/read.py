@@ -3,7 +3,7 @@ from __future__ import annotations
 import itertools
 import logging
 import re
-from typing import Any, Iterator
+from typing import Any, Iterator, NamedTuple
 
 import networkx
 
@@ -124,10 +124,22 @@ tag_line_pattern = re.compile(
 )
 
 
-def parse_tag_line(line: str) -> tuple[str, str | None, str | None, str | None]:
+class TagLine(NamedTuple):
+    """
+    Parsed components of a single OBO tag line.
+    trailing_modifier and comment are None when absent from the line.
+    """
+
+    tag: str
+    value: str | None
+    trailing_modifier: str | None
+    comment: str | None
+
+
+def parse_tag_line(line: str) -> TagLine:
     """
     Take a line representing a single tag-value pair and parse
-    the line into (tag, value, trailing_modifier, comment).
+    the line into a TagLine(tag, value, trailing_modifier, comment).
     """
     match = re.match(tag_line_pattern, line)
     if match is None:
@@ -141,7 +153,7 @@ def parse_tag_line(line: str) -> tuple[str, str | None, str | None, str | None]:
     comment = match.group("comment")
     if comment:
         comment = comment.lstrip("! ")
-    return tag, value, trailing_modifier, comment
+    return TagLine(tag=tag, value=value, trailing_modifier=trailing_modifier, comment=comment)
 
 
 def parse_stanza(lines: list[str], tag_singularity: dict[str, bool]) -> dict[str, Any]:
