@@ -171,7 +171,12 @@ def parse_tag_line(line: str) -> TagLine:
     comment = match.group("comment")
     if comment:
         comment = comment.lstrip("! ")
-    return TagLine(tag=tag, value=value, trailing_modifier=trailing_modifier, comment=comment)
+    return TagLine(
+        tag=tag,
+        value=value,
+        trailing_modifier=trailing_modifier,
+        comment=comment,
+    )
 
 
 def parse_stanza(
