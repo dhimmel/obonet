@@ -1,5 +1,6 @@
 import os
 import pathlib
+from typing import Any
 
 import pytest
 
@@ -9,17 +10,24 @@ from obonet.read import parse_stanza, parse_tag_line, term_tag_singularity
 directory = os.path.dirname(os.path.abspath(__file__))
 
 
+def get_node(graph: Any, node: str) -> Any:
+    if hasattr(graph, "node"):
+        # NetworkX 1.x
+        return graph.node[node]
+    # NetworkX 2.x
+    return graph.nodes[node]
+
+
 def test_read_taxrank_file() -> None:
     """
     Test reading the taxrank ontology OBO file.
     """
-    pytest.importorskip("networkx", minversion="2.0")
     path = os.path.join(directory, "data", "taxrank.obo")
     with open(path) as read_file:
         taxrank = obonet.read_obo(read_file)
     assert len(taxrank) == 61
-    assert taxrank.nodes["TAXRANK:0000001"]["name"] == "phylum"
-    assert "NCBITaxon:kingdom" in taxrank.nodes["TAXRANK:0000017"]["xref"]
+    assert get_node(taxrank, "TAXRANK:0000001")["name"] == "phylum"
+    assert "NCBITaxon:kingdom" in get_node(taxrank, "TAXRANK:0000017")["xref"]
 
 
 @pytest.mark.parametrize("extension", ["", ".gz", ".bz2", ".xz"])
@@ -179,10 +187,12 @@ def test_parse_stanza_with_clauses() -> None:
 def test_read_obo_with_clauses() -> None:
     path = os.path.join(directory, "data", "taxrank.obo")
     taxrank = obonet.read_obo(path)
-    assert "_clauses" not in taxrank.nodes["TAXRANK:0000001"]
+    node = get_node(taxrank, "TAXRANK:0000001")
+    assert "_clauses" not in node
 
     taxrank = obonet.read_obo(path, include_clauses=True)
-    clauses = taxrank.nodes["TAXRANK:0000001"]["_clauses"]
+    node = get_node(taxrank, "TAXRANK:0000001")
+    clauses = node["_clauses"]
     assert clauses[0] == {
         "tag": "id",
         "value": "TAXRANK:0000001",
