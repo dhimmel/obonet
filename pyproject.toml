@@ -43,7 +43,7 @@ Tracker = "https://github.com/dhimmel/obonet/issues"
 
 [project.optional-dependencies]
 dev = [
-    "pre-commit",
+    "prek",
     "pytest",
 ]
 

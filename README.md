@@ -113,11 +113,11 @@ Some development commands:
 # install dependencies
 uv sync --extra dev
 
-# install pre-commit hooks
-uv run pre-commit install
+# install git hooks
+uv run prek install
 
-# run all pre-commit checks
-uv run pre-commit run --all
+# run all prek checks
+uv run prek run --all-files
 
 # run tests
 uv run pytest
