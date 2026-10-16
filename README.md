@@ -1,7 +1,7 @@
 # obonet: load OBO-formatted ontologies into networkx
 
 [![GitHub Actions CI Build Status](https://img.shields.io/github/actions/workflow/status/dhimmel/obonet/build.yaml?branch=main&label=actions&style=for-the-badge&logo=github&logoColor=white)](https://github.com/dhimmel/obonet/actions)  
-[![Software License](https://img.shields.io/pypi/l/obonet?style=for-the-badge&logo=FreeBSD&logoColor=white)](https://github.com/dhimmel/obonet/blob/main/LICENSE)  
+[![Software License](https://img.shields.io/pypi/l/obonet?style=for-the-badge&logo=FreeBSD&logoColor=white)](https://github.com/dhimmel/obonet/blob/main/LICENSE.md)  
 [![PyPI](https://img.shields.io/pypi/v/obonet.svg?style=for-the-badge&logo=PyPI&logoColor=white)](https://pypi.org/project/obonet/)  
 
 
@@ -78,7 +78,7 @@ uvx obonet tests/data/taxrank.obo --include-clauses --output=taxrank.json
 
 ## Comparison
 
-This package specializes in reading OBO files into a `newtorkx.MultiDiGraph`.
+This package specializes in reading OBO files into a `networkx.MultiDiGraph`.
 A more general ontology-to-NetworkX reader is available in the Python [nxontology package](https://github.com/related-sciences/nxontology) via the `nxontology.imports.pronto_to_multidigraph` function.
 This function takes a `pronto.Ontology` object,
 which can be loaded from an OBO file, OBO Graphs JSON file, or Ontology Web Language 2 RDF/XML file (OWL).
