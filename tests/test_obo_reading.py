@@ -135,6 +135,52 @@ def test_parse_tag_line_curly_braces() -> None:
     assert tag_line.trailing_modifier
 
 
+def test_parse_tag_line_exclamation_in_quotes() -> None:
+    """Test that unescaped '!' inside quoted strings is not parsed as a comment."""
+    line = (
+        'def: "q towards e2 if and only if q is a relational quality such that '
+        'q inheres-in some e, and e != e2 and q is dependent on e2" []'
+    )
+    tag_line = parse_tag_line(line)
+    assert tag_line.tag == "def"
+    assert tag_line.value == (
+        '"q towards e2 if and only if q is a relational quality such that '
+        'q inheres-in some e, and e != e2 and q is dependent on e2" []'
+    )
+    assert tag_line.trailing_modifier is None
+    assert tag_line.comment is None
+
+    line_with_comment = (
+        'def: "value with \\"quoted !\\" and e != e2" [PMID:1] '
+        '{source="a ! b"} ! real comment\n'
+    )
+    tag_line = parse_tag_line(line_with_comment)
+    assert tag_line.tag == "def"
+    assert tag_line.value == '"value with \\"quoted !\\" and e != e2" [PMID:1]'
+    assert tag_line.trailing_modifier == 'source="a ! b"'
+    assert tag_line.comment == "real comment"
+
+
+def test_parse_tag_line_multiple_spaces_before_modifier_or_comment() -> None:
+    tag_line = parse_tag_line("is_a: GO:0005102  ! receptor binding\n")
+    assert tag_line.value == "GO:0005102"
+    assert tag_line.comment == "receptor binding"
+
+    tag_line = parse_tag_line(
+        'xref: UMLS:C0022131  {source="foo"}  ! Islets of Langerhans\n'
+    )
+    assert tag_line.value == "UMLS:C0022131"
+    assert tag_line.trailing_modifier == 'source="foo"'
+    assert tag_line.comment == "Islets of Langerhans"
+
+
+def test_parse_tag_line_escaped_backslash_before_comment() -> None:
+    tag_line = parse_tag_line("name: alpha \\\\! real comment\n")
+    assert tag_line.tag == "name"
+    assert tag_line.value == "alpha \\\\"
+    assert tag_line.comment == "real comment"
+
+
 def test_parse_stanza_with_clauses() -> None:
     lines = [
         'xref: DOID:14250 {source="MONDO:equivalentTo"} ! Down syndrome',

@@ -121,25 +121,8 @@ def get_sections(
     return typedefs, terms, instances, header
 
 
-# regular expression to parse key-value pair lines.
-tag_line_pattern = re.compile(
-    r"""^
-    (?P<tag>.+?):\s*             # tag and separator
-    (?P<value>.*?)               # value: match anything (non-greedy)
-    (?:\s                        # optional trailing modifier
-        (?P<trailing_modifier>
-            (?<!\\)\{[^{}]*\}    # match unescaped {...}
-        )
-    )?
-    (?:\s
-        (?P<comment>            # optional comment
-            (?<!\\)![^\n]*      # match unescaped ! followed by any characters
-        )
-    )?
-    \s*$                        # optional trailing whitespace
-    """,
-    re.VERBOSE,
-)
+# regular expression to split tag and value-part of a tag-value line.
+tag_line_pattern = re.compile(r"^(?P<tag>.+?):\s*(?P<rest>.*?)\s*$")
 
 
 @dataclass(frozen=True)
@@ -155,6 +138,72 @@ class TagLine:
     comment: str | None
 
 
+def _find_closing_quote(text: str, start: int) -> int | None:
+    """Return the index of the matching unescaped double quote, or None."""
+    i = start + 1
+    while i < len(text):
+        ch = text[i]
+        if ch == "\\":
+            i += 2
+            continue
+        if ch == '"':
+            return i
+        i += 1
+    return None
+
+
+def _iter_unquoted_chars(text: str) -> Iterator[tuple[int, str]]:
+    """Yield `(index, char)` for unescaped characters outside matched quotes."""
+    i = 0
+    while i < len(text):
+        ch = text[i]
+        if ch == "\\":
+            i += 2
+            continue
+        if ch == '"':
+            end = _find_closing_quote(text, i)
+            if end is not None:
+                i = end + 1
+                continue
+        yield i, ch
+        i += 1
+
+
+def _split_comment(rest: str) -> tuple[str, str | None]:
+    """Split an unescaped '!' comment outside quoted strings from `rest`."""
+    if "!" not in rest:
+        return rest, None
+    for i, ch in _iter_unquoted_chars(rest):
+        if ch == "!":
+            return rest[:i].rstrip(), rest[i:].lstrip("! ")
+    return rest, None
+
+
+def _split_trailing_modifier(value: str) -> tuple[str, str | None]:
+    """Split a trailing unquoted '{...}' modifier preceded by whitespace."""
+    if not value.endswith("}"):
+        return value, None
+    brace_start: int | None = None
+    depth = 0
+    for i, ch in _iter_unquoted_chars(value):
+        if ch == "{":
+            if depth == 0:
+                brace_start = i
+            depth += 1
+        elif ch == "}" and depth > 0:
+            depth -= 1
+            if depth == 0 and i < len(value) - 1:
+                brace_start = None
+    if (
+        depth != 0
+        or brace_start is None
+        or brace_start == 0
+        or not value[brace_start - 1].isspace()
+    ):
+        return value, None
+    return value[:brace_start].rstrip(), value[brace_start + 1 : -1]
+
+
 def parse_tag_line(line: str) -> TagLine:
     """
     Take a line representing a single tag-value pair and parse
@@ -165,13 +214,9 @@ def parse_tag_line(line: str) -> TagLine:
         message = f"Tag-value pair parsing failed for:\n{line}"
         raise ValueError(message)
     tag = match.group("tag")
-    value = match.group("value")
-    trailing_modifier = match.group("trailing_modifier")
-    if trailing_modifier:
-        trailing_modifier = trailing_modifier.strip("{}")
-    comment = match.group("comment")
-    if comment:
-        comment = comment.lstrip("! ")
+    rest = match.group("rest")
+    value, comment = _split_comment(rest)
+    value, trailing_modifier = _split_trailing_modifier(value)
     return TagLine(
         tag=tag,
         value=value,
